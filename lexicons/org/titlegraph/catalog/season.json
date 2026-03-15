@@ -1,0 +1,24 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.catalog.season",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A single season, part, or volume of a series. Semantically maps to schema.org/TVSeason.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["schemaUrl", "seriesRef", "displayLabel", "displayNumber", "coreData"],
+        "properties": {
+          "schemaUrl": { "type": "string", "const": "https://schema.org/TVSeason" },
+          "seriesRef": { "type": "string", "format": "at-uri", "description": "The AT-URI of the parent org.titlegraph.catalog.series record." },
+          "displayLabel": { "type": "string", "maxLength": 50, "description": "The regional or stylistic noun (e.g., 'Season', 'Series', 'Part', 'Book')." },
+          "displayNumber": { "type": "string", "maxLength": 20, "description": "The identifier for this grouping (e.g., '1', 'A', 'VI'). Allows for alphanumeric naming." },
+          "totalEpisodes": { "type": "integer", "description": "Matches schema.org/numberOfEpisodes." },
+          "coreData": { "type": "ref", "ref": "org.titlegraph.catalog.core#metadata", "description": "Season-specific metadata and artwork." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

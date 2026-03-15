@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.catalog.series",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "An episodic television show. Semantically maps to schema.org/TVSeries.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["openGraphType", "schemaUrl", "coreData"],
+        "properties": {
+          "openGraphType": { "type": "string", "const": "video.tv_show" },
+          "schemaUrl": { "type": "string", "const": "https://schema.org/TVSeries" },
+          "coreData": { "type": "ref", "ref": "org.titlegraph.catalog.core#metadata" },
+          "totalSeasons": { "type": "integer", "description": "Matches schema.org/numberOfSeasons." },
+          "isOngoing": { "type": "boolean", "description": "Indicates if the series is still actively producing new episodes." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.delivery.bundle",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "A commercial grouping (Bouquet) of linear channels and/or VOD catalog assets, packaged together for consumer display and entitlement.",
+      "record": {
+        "type": "object",
+        "required": ["name", "description"],
+        "properties": {
+          "name": { 
+            "type": "string", 
+            "maxLength": 100,
+            "description": "Consumer-facing display name (e.g., 'The HBO & Cinemax Add-On')." 
+          },
+          "description": { 
+            "type": "string", 
+            "maxLength": 1000,
+            "description": "Marketing copy explaining the value of the bundle." 
+          },
+          "imageLogo": { 
+            "type": "blob", 
+            "accept": ["image/png", "image/webp"], 
+            "description": "The transparent logo or lockup for the bundle itself." 
+          },
+          "channelRefs": {
+            "type": "array",
+            "items": { "type": "string", "format": "at-uri" },
+            "description": "AT-URIs pointing to org.titlegraph.delivery.channel records (e.g., HBO East, HBO West, HBO Comedy)."
+          },
+          "catalogRefs": {
+            "type": "array",
+            "items": { "type": "string", "format": "at-uri" },
+            "description": "AT-URIs pointing to org.titlegraph.catalog.collection, series, or movie records (e.g., the HBO VOD catalog)."
+          },
+          "bundleBaseGeoPolicy": { 
+            "type": "ref", 
+            "ref": "org.titlegraph.delivery.core#geoPolicy", 
+            "description": "Optional hard geo-restrictions for the entire bundle (e.g., US Only)." 
+          }
+        }
+      }
+    }
+  }
+}

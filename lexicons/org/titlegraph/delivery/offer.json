@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.delivery.offer",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "The commercial price tag for an Entitlement.",
+      "record": {
+        "type": "object",
+        "required": ["entitlementRef", "offerGeoEligibility", "price", "currency"],
+        "properties": {
+          "entitlementRef": { "type": "string", "format": "at-uri", "description": "What you are actually buying." },
+          "offerGeoEligibility": { "type": "ref", "ref": "org.titlegraph.delivery.core#geoPolicy", "description": "Where this specific price tag is valid." },
+          "price": { "type": "float", "description": "0.00 if free/AVOD." },
+          "currency": { "type": "string", "maxLength": 3, "description": "ISO 4217 code (e.g., 'USD', 'EUR')." },
+          "offerValidFrom": { "type": "string", "format": "datetime", "description": "When the item goes on sale." },
+          "offerValidThrough": { "type": "string", "format": "datetime", "description": "When the sale ends." }
+        }
+      }
+    }
+  }
+}

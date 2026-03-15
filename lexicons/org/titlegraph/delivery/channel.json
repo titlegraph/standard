@@ -1,0 +1,22 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.delivery.channel",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "A 24/7 linear streaming network.",
+      "record": {
+        "type": "object",
+        "required": ["name", "callSign", "licenseType", "streamUrl"],
+        "properties": {
+          "name": { "type": "string", "description": "e.g., 'Sports Net Z'" },
+          "callSign": { "type": "string", "description": "e.g., 'SPTZ'" },
+          "licenseType": { "type": "string", "enum": ["FAST", "PAY-TV", "HYBRID"] },
+          "streamUrl": { "type": "string", "format": "uri", "description": "The primary HLS/DASH manifest." },
+          "channelBaseGeoPolicy": { "type": "ref", "ref": "org.titlegraph.delivery.core#geoPolicy", "description": "Absolute hard restrictions (e.g., US ONLY)." }
+        }
+      }
+    }
+  }
+}

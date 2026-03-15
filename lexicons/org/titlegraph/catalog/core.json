@@ -1,0 +1,72 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.catalog.core",
+  "defs": {
+    "metadata": {
+      "type": "object",
+      "description": "Foundational metadata shared across all TitleGraph media assets.",
+      "required": ["title", "description", "imagePortrait"],
+      "properties": {
+        "title": { "type": "string", "maxLength": 300, "description": "Matches schema.org/name. The primary display title." },
+        "description": { "type": "string", "maxLength": 4000, "description": "Matches schema.org/description. The primary plot summary." },
+        "synopsis": { "type": "string", "maxLength": 140, "description": "Matches schema.org/abstract. A short logline." },
+        "releaseYear": { "type": "integer", "description": "The year of initial global release." },
+        "contentRating": { "type": "string", "description": "Matches schema.org/contentRating (e.g., PG-13, TV-MA)." },
+        "genres": { "type": "array", "items": { "type": "string" }, "description": "Matches schema.org/genre." },
+        "eidr": { "type": "string", "description": "The Entertainment Identifier Registry (EIDR) ID." },
+        "proprietaryIds": {
+          "type": "array",
+          "description": "An array of internal system IDs (e.g., Gracenote, IMDb, Moonstone Hub).",
+          "items": {
+            "type": "object",
+            "required": ["system", "id"],
+            "properties": {
+              "system": { "type": "string" },
+              "id": { "type": "string" }
+            }
+          }
+        },
+        "technicalSpecs": {
+          "type": "object",
+          "description": "Consolidated technical specifications, linguistic options, and accessibility features available for the media.",
+          "properties": {
+            "resolutions": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Standardized resolution formats available (e.g., 'SD', 'HD', '4K', '8K')."
+            },
+            "aspectRatios": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Available presentation ratios (e.g., '16:9', '4:3', '2.39:1', '9:16')."
+            },
+            "primaryLanguages": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "BCP 47 language tags for the original audio dialogue (e.g., 'en-US', 'ja-JP')."
+            },
+            "dubbedLanguages": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "BCP 47 language tags for available alternate audio dubs."
+            },
+            "subtitleLanguages": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "BCP 47 language tags for available text subtitles."
+            },
+            "accessibilityFeatures": {
+              "type": "array",
+              "items": { "type": "string" },
+              "description": "Standardized accessibility identifiers (e.g., 'closed-captions', 'descriptive-audio', 'sign-language-interpreter')."
+            }
+          }
+        },
+        "imagePortrait": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "description": "Primary 2:3 or 3:4 key art." },
+        "imageLandscape": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "description": "Primary 16:9 hero artwork." },
+        "imageBackground": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "description": "Textless 16:9 background art." },
+        "titleTreatment": { "type": "blob", "accept": ["image/png", "image/webp"], "description": "Transparent logo artwork." }
+      }
+    }
+  }
+}

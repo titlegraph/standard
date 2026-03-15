@@ -1,0 +1,26 @@
+{
+  "name": "@titlegraph/lexicons",
+  "version": "0.1.0",
+  "description": "The federated catalog and delivery standard for streaming television.",
+  "main": "index.js",
+  "scripts": {
+    "generate-types": "lex gen-api src/types ./lexicons/**/*.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/titlegraph/standard.git"
+  },
+  "keywords": [
+    "atproto",
+    "lexicon",
+    "streaming",
+    "metadata",
+    "vod",
+    "titlegraph"
+  ],
+  "author": "The TitleGraph Project",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@atproto/lex-cli": "latest"
+  }
+}

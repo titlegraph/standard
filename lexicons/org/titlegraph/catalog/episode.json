@@ -1,0 +1,25 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.catalog.episode",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A single episode. Semantically maps to schema.org/TVEpisode.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["openGraphType", "schemaUrl", "seriesRef", "seasonRef", "episodeNumber", "coreData", "durationSeconds"],
+        "properties": {
+          "openGraphType": { "type": "string", "const": "video.episode" },
+          "schemaUrl": { "type": "string", "const": "https://schema.org/TVEpisode" },
+          "seriesRef": { "type": "string", "format": "at-uri", "description": "The AT-URI of the parent series." },
+          "seasonRef": { "type": "string", "format": "at-uri", "description": "The AT-URI of the parent season/part." },
+          "episodeNumber": { "type": "integer", "description": "Matches schema.org/episodeNumber." },
+          "coreData": { "type": "ref", "ref": "org.titlegraph.catalog.core#metadata" },
+          "durationSeconds": { "type": "integer", "minimum": 1 },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

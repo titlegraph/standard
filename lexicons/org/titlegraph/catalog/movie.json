@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.catalog.movie",
+  "defs": {
+    "main": {
+      "type": "record",
+      "description": "A standalone cinematic film. Semantically maps to schema.org/Movie.",
+      "key": "tid",
+      "record": {
+        "type": "object",
+        "required": ["openGraphType", "schemaUrl", "coreData", "durationSeconds"],
+        "properties": {
+          "openGraphType": { "type": "string", "const": "video.movie" },
+          "schemaUrl": { "type": "string", "const": "https://schema.org/Movie" },
+          "coreData": { "type": "ref", "ref": "org.titlegraph.catalog.core#metadata" },
+          "durationSeconds": { "type": "integer", "minimum": 1, "description": "Total runtime in seconds." },
+          "trailerUrl": { "type": "string", "format": "uri", "description": "URL to the HLS m3u8 trailer manifest." },
+          "createdAt": { "type": "string", "format": "datetime" }
+        }
+      }
+    }
+  }
+}

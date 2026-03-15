@@ -1,0 +1,52 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.delivery.core",
+  "defs": {
+    "geoPolicy": {
+      "type": "object",
+      "description": "A complex geographical topology for spotbeams and blackouts. Evaluated granularly (Points > Zips > Counties > Regions > Countries).",
+      "properties": {
+        "includes": { "type": "ref", "ref": "#geoShape", "description": "The areas where access is explicitly granted." },
+        "excludes": { "type": "ref", "ref": "#geoShape", "description": "The areas where access is explicitly denied (blacked out)." }
+      }
+    },
+    "geoShape": {
+      "type": "object",
+      "properties": {
+        "countries": { "type": "array", "items": { "type": "string" }, "description": "ISO 3166-1 alpha-2 (e.g., ['DE', 'CH', 'BR'])." },
+        "regions": { "type": "array", "items": { "type": "string" }, "description": "ISO 3166-2 states/provinces (e.g., ['US-OH'])." },
+        "counties": { "type": "array", "items": { "type": "string" }, "description": "FIPS codes or localized county codes (e.g., ['39061'] for Hamilton County)." },
+        "postalCodes": { "type": "array", "items": { "type": "string" }, "description": "Postal codes (e.g., ['45140', '90210'])." },
+        "circles": {
+          "type": "array",
+          "description": "Center point and radius (e.g., Dodger Stadium).",
+          "items": {
+            "type": "object",
+            "required": ["latitude", "longitude", "radiusMeters"],
+            "properties": {
+              "latitude": { "type": "float" },
+              "longitude": { "type": "float" },
+              "radiusMeters": { "type": "integer" }
+            }
+          }
+        },
+        "polygons": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Array of stringified GeoJSON polygon coordinate arrays (e.g., random shape in Brazil)."
+        }
+      }
+    },
+    "temporalWindow": {
+      "type": "object",
+      "description": "Defines the exact duration logic of an entitlement.",
+      "properties": {
+        "fixedStart": { "type": "string", "format": "datetime", "description": "Hard start (e.g., start of a sports season)." },
+        "fixedEnd": { "type": "string", "format": "datetime", "description": "Hard end (e.g., end of sports season)." },
+        "relativeValiditySeconds": { "type": "integer", "description": "TVOD/Rental: How long the user has to press play after purchase (e.g., 30 days = 2592000)." },
+        "relativeViewingSeconds": { "type": "integer", "description": "TVOD/Rental: How long the user has to finish watching once started (e.g., 48 hours = 172800)." },
+        "recurringPeriodSeconds": { "type": "integer", "description": "SVOD: Rolling subscription period (e.g., 30 days)." }
+      }
+    }
+  }
+}
