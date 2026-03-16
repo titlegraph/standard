@@ -19,7 +19,7 @@ export interface Main {
   $type: 'org.titlegraph.catalog.series'
   openGraphType: 'video.tv_show'
   schemaUrl: 'https://schema.org/TVSeries'
-  coreData: OrgTitlegraphCatalogCore.Metadata
+  metadata: OrgTitlegraphCatalogCore.Metadata
   /** Matches schema.org/numberOfSeasons. */
   totalSeasons?: number
   /** Indicates if the series is still actively producing new episodes. */

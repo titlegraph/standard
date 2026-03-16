@@ -8,11 +8,11 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["openGraphType", "schemaUrl", "coreData"],
+        "required": ["openGraphType", "schemaUrl", "metadata"],
         "properties": {
           "openGraphType": { "type": "string", "const": "video.tv_show" },
           "schemaUrl": { "type": "string", "const": "https://schema.org/TVSeries" },
-          "coreData": { "type": "ref", "ref": "org.titlegraph.catalog.core#metadata" },
+          "metadata": { "type": "ref", "ref": "org.titlegraph.catalog.core#metadata" },
           "totalSeasons": { "type": "integer", "description": "Matches schema.org/numberOfSeasons." },
           "isOngoing": { "type": "boolean", "description": "Indicates if the series is still actively producing new episodes." },
           "createdAt": { "type": "string", "format": "datetime" }

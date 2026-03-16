@@ -176,7 +176,7 @@ export const schemaDict = {
             'seriesRef',
             'seasonRef',
             'episodeNumber',
-            'coreData',
+            'metadata',
             'durationSeconds',
           ],
           properties: {
@@ -202,7 +202,7 @@ export const schemaDict = {
               type: 'integer',
               description: 'Matches schema.org/episodeNumber.',
             },
-            coreData: {
+            metadata: {
               type: 'ref',
               ref: 'lex:org.titlegraph.catalog.core#metadata',
             },
@@ -233,7 +233,7 @@ export const schemaDict = {
           required: [
             'openGraphType',
             'schemaUrl',
-            'coreData',
+            'metadata',
             'durationSeconds',
           ],
           properties: {
@@ -245,7 +245,7 @@ export const schemaDict = {
               type: 'string',
               const: 'https://schema.org/Movie',
             },
-            coreData: {
+            metadata: {
               type: 'ref',
               ref: 'lex:org.titlegraph.catalog.core#metadata',
             },
@@ -284,7 +284,7 @@ export const schemaDict = {
             'seriesRef',
             'displayLabel',
             'displayNumber',
-            'coreData',
+            'metadata',
           ],
           properties: {
             schemaUrl: {
@@ -313,7 +313,7 @@ export const schemaDict = {
               type: 'integer',
               description: 'Matches schema.org/numberOfEpisodes.',
             },
-            coreData: {
+            metadata: {
               type: 'ref',
               ref: 'lex:org.titlegraph.catalog.core#metadata',
               description: 'Season-specific metadata and artwork.',
@@ -338,7 +338,7 @@ export const schemaDict = {
         key: 'tid',
         record: {
           type: 'object',
-          required: ['openGraphType', 'schemaUrl', 'coreData'],
+          required: ['openGraphType', 'schemaUrl', 'metadata'],
           properties: {
             openGraphType: {
               type: 'string',
@@ -348,7 +348,7 @@ export const schemaDict = {
               type: 'string',
               const: 'https://schema.org/TVSeries',
             },
-            coreData: {
+            metadata: {
               type: 'ref',
               ref: 'lex:org.titlegraph.catalog.core#metadata',
             },

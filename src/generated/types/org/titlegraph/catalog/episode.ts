@@ -25,7 +25,7 @@ export interface Main {
   seasonRef: string
   /** Matches schema.org/episodeNumber. */
   episodeNumber: number
-  coreData: OrgTitlegraphCatalogCore.Metadata
+  metadata: OrgTitlegraphCatalogCore.Metadata
   durationSeconds: number
   createdAt?: string
   [k: string]: unknown

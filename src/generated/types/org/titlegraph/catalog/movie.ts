@@ -19,7 +19,7 @@ export interface Main {
   $type: 'org.titlegraph.catalog.movie'
   openGraphType: 'video.movie'
   schemaUrl: 'https://schema.org/Movie'
-  coreData: OrgTitlegraphCatalogCore.Metadata
+  metadata: OrgTitlegraphCatalogCore.Metadata
   /** Total runtime in seconds. */
   durationSeconds: number
   /** URL to the HLS m3u8 trailer manifest. */

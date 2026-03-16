@@ -26,7 +26,7 @@ export interface Main {
   displayNumber: string
   /** Matches schema.org/numberOfEpisodes. */
   totalEpisodes?: number
-  coreData: OrgTitlegraphCatalogCore.Metadata
+  metadata: OrgTitlegraphCatalogCore.Metadata
   createdAt?: string
   [k: string]: unknown
 }

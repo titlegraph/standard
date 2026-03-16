@@ -8,14 +8,14 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["openGraphType", "schemaUrl", "seriesRef", "seasonRef", "episodeNumber", "coreData", "durationSeconds"],
+        "required": ["openGraphType", "schemaUrl", "seriesRef", "seasonRef", "episodeNumber", "metadata", "durationSeconds"],
         "properties": {
           "openGraphType": { "type": "string", "const": "video.episode" },
           "schemaUrl": { "type": "string", "const": "https://schema.org/TVEpisode" },
           "seriesRef": { "type": "string", "format": "at-uri", "description": "The AT-URI of the parent series." },
           "seasonRef": { "type": "string", "format": "at-uri", "description": "The AT-URI of the parent season/part." },
           "episodeNumber": { "type": "integer", "description": "Matches schema.org/episodeNumber." },
-          "coreData": { "type": "ref", "ref": "org.titlegraph.catalog.core#metadata" },
+          "metadata": { "type": "ref", "ref": "org.titlegraph.catalog.core#metadata" },
           "durationSeconds": { "type": "integer", "minimum": 1 },
           "createdAt": { "type": "string", "format": "datetime" }
         }
