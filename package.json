@@ -15,7 +15,7 @@
     "lexicons"
   ],
   "scripts": {
-    "build": "lex gen-server ./src lexicons/org/titlegraph/delivery/offer.json lexicons/org/titlegraph/delivery/entitlement.json lexicons/org/titlegraph/delivery/core.json lexicons/org/titlegraph/delivery/channel.json lexicons/org/titlegraph/delivery/bundle.json  lexicons/org/titlegraph/catalog/core.json lexicons/org/titlegraph/catalog/episode.json lexicons/org/titlegraph/catalog/movie.json lexicons/org/titlegraph/catalog/season.json lexicons/org/titlegraph/catalog/series.json && tsc"
+    "build": "lex gen-server ./src/generated lexicons/org/titlegraph/delivery/offer.json lexicons/org/titlegraph/delivery/entitlement.json lexicons/org/titlegraph/delivery/core.json lexicons/org/titlegraph/delivery/channel.json lexicons/org/titlegraph/delivery/bundle.json  lexicons/org/titlegraph/catalog/core.json lexicons/org/titlegraph/catalog/episode.json lexicons/org/titlegraph/catalog/movie.json lexicons/org/titlegraph/catalog/season.json lexicons/org/titlegraph/catalog/series.json && tsc"
   },
   "repository": {
     "type": "git",
