@@ -1,6 +1,6 @@
 {
   "name": "@titlegraph/lexicons",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "The federated catalog and delivery standard for streaming television.",
   "main": "index.js",
   "files": [
