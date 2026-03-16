@@ -8,14 +8,42 @@
       "description": "The commercial price tag for an Entitlement.",
       "record": {
         "type": "object",
-        "required": ["entitlementRef", "offerGeoEligibility", "price", "currency"],
+        "required": [
+          "entitlementRef",
+          "offerGeoEligibility",
+          "price",
+          "currency"
+        ],
         "properties": {
-          "entitlementRef": { "type": "string", "format": "at-uri", "description": "What you are actually buying." },
-          "offerGeoEligibility": { "type": "ref", "ref": "org.titlegraph.delivery.core#geoPolicy", "description": "Where this specific price tag is valid." },
-          "price": { "type": "float", "description": "0.00 if free/AVOD." },
-          "currency": { "type": "string", "maxLength": 3, "description": "ISO 4217 code (e.g., 'USD', 'EUR')." },
-          "offerValidFrom": { "type": "string", "format": "datetime", "description": "When the item goes on sale." },
-          "offerValidThrough": { "type": "string", "format": "datetime", "description": "When the sale ends." }
+          "entitlementRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "What you are actually buying."
+          },
+          "offerGeoEligibility": {
+            "type": "ref",
+            "ref": "org.titlegraph.delivery.core#geoPolicy",
+            "description": "Where this specific price tag is valid."
+          },
+          "price": {
+            "type": "integer",
+            "description": "The price in the lowest currency denominator (e.g., cents. So $10.00 is 1000). 0 if free/AVOD."
+          },
+          "currency": {
+            "type": "string",
+            "maxLength": 3,
+            "description": "ISO 4217 code (e.g., 'USD', 'EUR')."
+          },
+          "offerValidFrom": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the item goes on sale."
+          },
+          "offerValidThrough": {
+            "type": "string",
+            "format": "datetime",
+            "description": "When the sale ends."
+          }
         }
       }
     }

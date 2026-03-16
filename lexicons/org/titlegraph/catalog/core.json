@@ -18,54 +18,62 @@
           "type": "array",
           "description": "An array of internal system IDs (e.g., Gracenote, IMDb, Moonstone Hub).",
           "items": {
-            "type": "object",
-            "required": ["system", "id"],
-            "properties": {
-              "system": { "type": "string" },
-              "id": { "type": "string" }
-            }
+            "type": "ref",
+            "ref": "#proprietaryId"
           }
         },
         "technicalSpecs": {
-          "type": "object",
-          "description": "Consolidated technical specifications, linguistic options, and accessibility features available for the media.",
-          "properties": {
-            "resolutions": {
-              "type": "array",
-              "items": { "type": "string" },
-              "description": "Standardized resolution formats available (e.g., 'SD', 'HD', '4K', '8K')."
-            },
-            "aspectRatios": {
-              "type": "array",
-              "items": { "type": "string" },
-              "description": "Available presentation ratios (e.g., '16:9', '4:3', '2.39:1', '9:16')."
-            },
-            "primaryLanguages": {
-              "type": "array",
-              "items": { "type": "string" },
-              "description": "BCP 47 language tags for the original audio dialogue (e.g., 'en-US', 'ja-JP')."
-            },
-            "dubbedLanguages": {
-              "type": "array",
-              "items": { "type": "string" },
-              "description": "BCP 47 language tags for available alternate audio dubs."
-            },
-            "subtitleLanguages": {
-              "type": "array",
-              "items": { "type": "string" },
-              "description": "BCP 47 language tags for available text subtitles."
-            },
-            "accessibilityFeatures": {
-              "type": "array",
-              "items": { "type": "string" },
-              "description": "Standardized accessibility identifiers (e.g., 'closed-captions', 'descriptive-audio', 'sign-language-interpreter')."
-            }
-          }
+          "type": "ref",
+          "ref": "#technicalSpecs",
+          "description": "Consolidated technical specifications, linguistic options, and accessibility features available for the media."
         },
         "imagePortrait": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "description": "Primary 2:3 or 3:4 key art." },
         "imageLandscape": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "description": "Primary 16:9 hero artwork." },
         "imageBackground": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "description": "Textless 16:9 background art." },
         "titleTreatment": { "type": "blob", "accept": ["image/png", "image/webp"], "description": "Transparent logo artwork." }
+      }
+    },
+    "proprietaryId": {
+      "type": "object",
+      "required": ["system", "id"],
+      "properties": {
+        "system": { "type": "string" },
+        "id": { "type": "string" }
+      }
+    },
+    "technicalSpecs": {
+      "type": "object",
+      "properties": {
+        "resolutions": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Standardized resolution formats available (e.g., 'SD', 'HD', '4K', '8K')."
+        },
+        "aspectRatios": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Available presentation ratios (e.g., '16:9', '4:3', '2.39:1', '9:16')."
+        },
+        "primaryLanguages": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "BCP 47 language tags for the original audio dialogue (e.g., 'en-US', 'ja-JP')."
+        },
+        "dubbedLanguages": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "BCP 47 language tags for available alternate audio dubs."
+        },
+        "subtitleLanguages": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "BCP 47 language tags for available text subtitles."
+        },
+        "accessibilityFeatures": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Standardized accessibility identifiers (e.g., 'closed-captions', 'descriptive-audio', 'sign-language-interpreter')."
+        }
       }
     }
   }

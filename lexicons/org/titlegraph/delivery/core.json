@@ -21,13 +21,8 @@
           "type": "array",
           "description": "Center point and radius (e.g., Dodger Stadium).",
           "items": {
-            "type": "object",
-            "required": ["latitude", "longitude", "radiusMeters"],
-            "properties": {
-              "latitude": { "type": "float" },
-              "longitude": { "type": "float" },
-              "radiusMeters": { "type": "integer" }
-            }
+            "type": "ref",
+            "ref": "#geoCircle"
           }
         },
         "polygons": {
@@ -46,6 +41,15 @@
         "relativeValiditySeconds": { "type": "integer", "description": "TVOD/Rental: How long the user has to press play after purchase (e.g., 30 days = 2592000)." },
         "relativeViewingSeconds": { "type": "integer", "description": "TVOD/Rental: How long the user has to finish watching once started (e.g., 48 hours = 172800)." },
         "recurringPeriodSeconds": { "type": "integer", "description": "SVOD: Rolling subscription period (e.g., 30 days)." }
+      }
+    },
+    "geoCircle": {
+      "type": "object",
+      "required": ["latitude", "longitude", "radiusMeters"],
+      "properties": {
+        "latitude": { "type": "string", "description": "Stringified decimal degree (e.g., '34.0739'). AT Protocol does not support float primitive types." },
+        "longitude": { "type": "string", "description": "Stringified decimal degree (e.g., '-118.2400')." },
+        "radiusMeters": { "type": "integer" }
       }
     }
   }

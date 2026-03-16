@@ -3,8 +3,12 @@
   "version": "0.1.0",
   "description": "The federated catalog and delivery standard for streaming television.",
   "main": "index.js",
+  "files": [
+    "dist",
+    "lexicons"
+  ],
   "scripts": {
-    "generate-types": "lex gen-api src/types ./lexicons/**/*.json"
+    "build": "lex gen-server ./src lexicons/org/titlegraph/delivery/offer.json lexicons/org/titlegraph/delivery/entitlement.json lexicons/org/titlegraph/delivery/core.json lexicons/org/titlegraph/delivery/channel.json lexicons/org/titlegraph/delivery/bundle.json  lexicons/org/titlegraph/catalog/core.json lexicons/org/titlegraph/catalog/episode.json lexicons/org/titlegraph/catalog/movie.json lexicons/org/titlegraph/catalog/season.json lexicons/org/titlegraph/catalog/series.json && tsc"
   },
   "repository": {
     "type": "git",
@@ -20,7 +24,14 @@
   ],
   "author": "The TitleGraph Project",
   "license": "Apache-2.0",
+  "devDependencies": {
+    "@atproto/lex-cli": "^0.9.9",
+    "@types/node": "^25.5.0",
+    "typescript": "^5.9.3"
+  },
   "dependencies": {
-    "@atproto/lex-cli": "latest"
+    "@atproto/api": "^0.19.3",
+    "@atproto/xrpc": "^0.7.7",
+    "@atproto/xrpc-server": "^0.10.15"
   }
 }
