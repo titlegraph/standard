@@ -12,4 +12,5 @@ export { Record as Offer } from './generated/types/org/titlegraph/delivery/offer
 export { Record as Entitlement } from './generated/types/org/titlegraph/delivery/entitlement';
 export { Record as Channel } from './generated/types/org/titlegraph/delivery/channel';
 export { Record as Bundle } from './generated/types/org/titlegraph/delivery/bundle';
+export { Record as Broadcast } from './generated/types/org/titlegraph/delivery/broadcast';
 export * from './generated/types/org/titlegraph/delivery/core';

@@ -370,6 +370,52 @@ export const schemaDict = {
       },
     },
   },
+  OrgTitlegraphDeliveryBroadcast: {
+    lexicon: 1,
+    id: 'org.titlegraph.delivery.broadcast',
+    defs: {
+      main: {
+        type: 'record',
+        key: 'tid',
+        description: 'A scheduled airing of content on a linear channel.',
+        record: {
+          type: 'object',
+          required: ['channelRef', 'startTime', 'endTime'],
+          properties: {
+            channelRef: {
+              type: 'string',
+              format: 'at-uri',
+              description: 'The station airing this broadcast.',
+            },
+            startTime: {
+              type: 'string',
+              format: 'datetime',
+            },
+            endTime: {
+              type: 'string',
+              format: 'datetime',
+            },
+            assetRef: {
+              type: 'string',
+              format: 'at-uri',
+              description:
+                'Optional. The underlying catalog asset (Movie, Episode) being aired.',
+            },
+            title: {
+              type: 'string',
+              maxLength: 300,
+              description:
+                'The display title (used if assetRef is missing or for live sports).',
+            },
+            isLive: {
+              type: 'boolean',
+              description: 'True for a live event (e.g., a football game).',
+            },
+          },
+        },
+      },
+    },
+  },
   OrgTitlegraphDeliveryBundle: {
     lexicon: 1,
     id: 'org.titlegraph.delivery.bundle',
@@ -424,6 +470,31 @@ export const schemaDict = {
               description:
                 'Optional hard geo-restrictions for the entire bundle (e.g., US Only).',
             },
+            lineup: {
+              type: 'array',
+              description:
+                'The station-to-LCN mapping for this commercial package.',
+              items: {
+                type: 'ref',
+                ref: 'lex:org.titlegraph.delivery.bundle#lineupItem',
+              },
+            },
+          },
+        },
+      },
+      lineupItem: {
+        type: 'object',
+        required: ['channelRef', 'logicalChannelNumber'],
+        properties: {
+          channelRef: {
+            type: 'string',
+            format: 'at-uri',
+            description: 'Pointer to the org.titlegraph.delivery.channel.',
+          },
+          logicalChannelNumber: {
+            type: 'string',
+            description:
+              "The LCN (e.g., '101', '4.1'). String to support sub-channels.",
           },
         },
       },
@@ -727,6 +798,7 @@ export const ids = {
   OrgTitlegraphCatalogMovie: 'org.titlegraph.catalog.movie',
   OrgTitlegraphCatalogSeason: 'org.titlegraph.catalog.season',
   OrgTitlegraphCatalogSeries: 'org.titlegraph.catalog.series',
+  OrgTitlegraphDeliveryBroadcast: 'org.titlegraph.delivery.broadcast',
   OrgTitlegraphDeliveryBundle: 'org.titlegraph.delivery.bundle',
   OrgTitlegraphDeliveryChannel: 'org.titlegraph.delivery.channel',
   OrgTitlegraphDeliveryCore: 'org.titlegraph.delivery.core',

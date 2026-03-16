@@ -28,6 +28,8 @@ export interface Main {
   /** AT-URIs pointing to org.titlegraph.catalog.collection, series, or movie records (e.g., the HBO VOD catalog). */
   catalogRefs?: string[]
   bundleBaseGeoPolicy?: OrgTitlegraphDeliveryCore.GeoPolicy
+  /** The station-to-LCN mapping for this commercial package. */
+  lineup?: LineupItem[]
   [k: string]: unknown
 }
 
@@ -45,4 +47,22 @@ export {
   type Main as Record,
   isMain as isRecord,
   validateMain as validateRecord,
+}
+
+export interface LineupItem {
+  $type?: 'org.titlegraph.delivery.bundle#lineupItem'
+  /** Pointer to the org.titlegraph.delivery.channel. */
+  channelRef: string
+  /** The LCN (e.g., '101', '4.1'). String to support sub-channels. */
+  logicalChannelNumber: string
+}
+
+const hashLineupItem = 'lineupItem'
+
+export function isLineupItem<V>(v: V) {
+  return is$typed(v, id, hashLineupItem)
+}
+
+export function validateLineupItem<V>(v: V) {
+  return validate<LineupItem & V>(v, id, hashLineupItem)
 }

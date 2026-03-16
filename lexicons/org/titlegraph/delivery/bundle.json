@@ -39,7 +39,33 @@
             "type": "ref", 
             "ref": "org.titlegraph.delivery.core#geoPolicy", 
             "description": "Optional hard geo-restrictions for the entire bundle (e.g., US Only)." 
+          },
+          "lineup": {
+            "type": "array",
+            "description": "The station-to-LCN mapping for this commercial package.",
+            "items": {
+              "type": "ref",
+              "ref": "#lineupItem"
+            }
           }
+        }
+      }
+    },
+    "lineupItem": {
+      "type": "object",
+      "required": [
+        "channelRef",
+        "logicalChannelNumber"
+      ],
+      "properties": {
+        "channelRef": {
+          "type": "string",
+          "format": "at-uri",
+          "description": "Pointer to the org.titlegraph.delivery.channel."
+        },
+        "logicalChannelNumber": {
+          "type": "string",
+          "description": "The LCN (e.g., '101', '4.1'). String to support sub-channels."
         }
       }
     }

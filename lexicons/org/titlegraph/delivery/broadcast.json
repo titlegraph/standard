@@ -1,0 +1,48 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.delivery.broadcast",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "A scheduled airing of content on a linear channel.",
+      "record": {
+        "type": "object",
+        "required": [
+          "channelRef",
+          "startTime",
+          "endTime"
+        ],
+        "properties": {
+          "channelRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "The station airing this broadcast."
+          },
+          "startTime": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "endTime": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "assetRef": {
+            "type": "string",
+            "format": "at-uri",
+            "description": "Optional. The underlying catalog asset (Movie, Episode) being aired."
+          },
+          "title": {
+            "type": "string",
+            "maxLength": 300,
+            "description": "The display title (used if assetRef is missing or for live sports)."
+          },
+          "isLive": {
+            "type": "boolean",
+            "description": "True for a live event (e.g., a football game)."
+          }
+        }
+      }
+    }
+  }
+}
