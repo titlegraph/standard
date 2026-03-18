@@ -9,6 +9,11 @@
       "properties": {
         "title": { "type": "string", "maxLength": 300, "description": "Matches schema.org/name. The primary display title." },
         "description": { "type": "string", "maxLength": 4000, "description": "Matches schema.org/description. The primary plot summary." },
+        "url": { 
+          "type": "string", 
+          "format": "uri", 
+          "description": "Matches schema.org/url. The primary web/app destination to view this title." 
+        },
         "synopsis": { "type": "string", "maxLength": 140, "description": "Matches schema.org/abstract. A short logline." },
         "releaseYear": { "type": "integer", "description": "The year of initial global release." },
         "contentRating": { "type": "string", "description": "Matches schema.org/contentRating (e.g., PG-13, TV-MA)." },

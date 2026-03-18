@@ -2,6 +2,11 @@
   "lexicon": 1,
   "id": "org.titlegraph.delivery.core",
   "defs": {
+    "url": { 
+      "type": "string", 
+      "format": "uri", 
+      "description": "Matches schema.org/url. The primary web/app destination to view this item." 
+    },
     "geoPolicy": {
       "type": "object",
       "description": "A complex geographical topology for spotbeams and blackouts. Evaluated granularly (Points > Zips > Counties > Regions > Countries).",

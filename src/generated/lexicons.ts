@@ -31,6 +31,12 @@ export const schemaDict = {
             description:
               'Matches schema.org/description. The primary plot summary.',
           },
+          url: {
+            type: 'string',
+            format: 'uri',
+            description:
+              'Matches schema.org/url. The primary web/app destination to view this title.',
+          },
           synopsis: {
             type: 'string',
             maxLength: 140,
@@ -543,6 +549,12 @@ export const schemaDict = {
     lexicon: 1,
     id: 'org.titlegraph.delivery.core',
     defs: {
+      url: {
+        type: 'string',
+        format: 'uri',
+        description:
+          'Matches schema.org/url. The primary web/app destination to view this item.',
+      },
       geoPolicy: {
         type: 'object',
         description:

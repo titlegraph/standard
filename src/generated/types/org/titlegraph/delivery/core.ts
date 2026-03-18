@@ -14,6 +14,9 @@ const is$typed = _is$typed,
   validate = _validate
 const id = 'org.titlegraph.delivery.core'
 
+/** Matches schema.org/url. The primary web/app destination to view this item. */
+export type Url = string
+
 /** A complex geographical topology for spotbeams and blackouts. Evaluated granularly (Points > Zips > Counties > Regions > Countries). */
 export interface GeoPolicy {
   $type?: 'org.titlegraph.delivery.core#geoPolicy'

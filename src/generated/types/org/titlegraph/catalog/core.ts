@@ -21,6 +21,8 @@ export interface Metadata {
   title: string
   /** Matches schema.org/description. The primary plot summary. */
   description: string
+  /** Matches schema.org/url. The primary web/app destination to view this title. */
+  url?: string
   /** Matches schema.org/abstract. A short logline. */
   synopsis?: string
   /** The year of initial global release. */
