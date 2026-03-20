@@ -1,0 +1,23 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.delivery.venue",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "A physical location where content is exhibited (e.g., a cinema or festival venue).",
+      "record": {
+        "type": "object",
+        "required": ["name", "latitude", "longitude"],
+        "properties": {
+          "name": { "type": "string", "description": "e.g., 'Palais des Festivals' or 'AMC Empire 25'" },
+          "description": { "type": "string", "maxLength": 1000 },
+          "address": { "type": "string", "description": "The human-readable street address." },
+          "latitude": { "type": "string", "description": "Stringified decimal." },
+          "longitude": { "type": "string" },
+          "websiteUrl": { "type": "string", "format": "uri" }
+        }
+      }
+    }
+  }
+}

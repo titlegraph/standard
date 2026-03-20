@@ -20,7 +20,7 @@ export interface Metadata {
   /** Matches schema.org/name. The primary display title. */
   title: string
   /** Matches schema.org/description. The primary plot summary. */
-  description: string
+  description?: string
   /** Matches schema.org/url. The primary web/app destination to view this title. */
   url?: string
   /** Matches schema.org/abstract. A short logline. */
@@ -37,13 +37,27 @@ export interface Metadata {
   proprietaryIds?: ProprietaryId[]
   technicalSpecs?: TechnicalSpecs
   /** Primary 2:3 or 3:4 key art. */
-  imagePortrait: BlobRef
+  imagePortrait?: BlobRef
   /** Primary 16:9 hero artwork. */
   imageLandscape?: BlobRef
   /** Textless 16:9 background art. */
   imageBackground?: BlobRef
   /** Transparent logo artwork. */
   titleTreatment?: BlobRef
+  productionStatus:
+    | 'pitch'
+    | 'script'
+    | 'development'
+    | 'pre-production'
+    | 'production'
+    | 'post-production'
+    | 'completed'
+    | 'released'
+  /** e.g., ['distribution', 'funding', 'cast'] */
+  seeking?: string[]
+  /** Secure link to a deck, script, or screener. */
+  pitchMaterialsUrl?: string
+  credits?: CreditItem[]
 }
 
 const hashMetadata = 'metadata'
@@ -54,6 +68,26 @@ export function isMetadata<V>(v: V) {
 
 export function validateMetadata<V>(v: V) {
   return validate<Metadata & V>(v, id, hashMetadata)
+}
+
+export interface CreditItem {
+  $type?: 'org.titlegraph.catalog.core#creditItem'
+  role: string
+  name: string
+  /** Links the credit to an AT Proto user. */
+  did?: string
+  /** External registry IDs for this person (e.g., IMDb nm ID). */
+  proprietaryIds?: ProprietaryId[]
+}
+
+const hashCreditItem = 'creditItem'
+
+export function isCreditItem<V>(v: V) {
+  return is$typed(v, id, hashCreditItem)
+}
+
+export function validateCreditItem<V>(v: V) {
+  return validate<CreditItem & V>(v, id, hashCreditItem)
 }
 
 export interface ProprietaryId {

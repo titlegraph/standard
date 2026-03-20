@@ -18,7 +18,7 @@ export const schemaDict = {
         type: 'object',
         description:
           'Foundational metadata shared across all TitleGraph media assets.',
-        required: ['title', 'description', 'imagePortrait'],
+        required: ['title', 'productionStatus'],
         properties: {
           title: {
             type: 'string',
@@ -96,6 +96,65 @@ export const schemaDict = {
             type: 'blob',
             accept: ['image/png', 'image/webp'],
             description: 'Transparent logo artwork.',
+          },
+          productionStatus: {
+            type: 'string',
+            enum: [
+              'pitch',
+              'script',
+              'development',
+              'pre-production',
+              'production',
+              'post-production',
+              'completed',
+              'released',
+            ],
+          },
+          seeking: {
+            type: 'array',
+            items: {
+              type: 'string',
+              maxLength: 50,
+            },
+            description: "e.g., ['distribution', 'funding', 'cast']",
+          },
+          pitchMaterialsUrl: {
+            type: 'string',
+            format: 'uri',
+            description: 'Secure link to a deck, script, or screener.',
+          },
+          credits: {
+            type: 'array',
+            items: {
+              type: 'ref',
+              ref: 'lex:org.titlegraph.catalog.core#creditItem',
+            },
+          },
+        },
+      },
+      creditItem: {
+        type: 'object',
+        required: ['role', 'name'],
+        properties: {
+          role: {
+            type: 'string',
+          },
+          name: {
+            type: 'string',
+          },
+          did: {
+            type: 'string',
+            format: 'did',
+            description: 'Links the credit to an AT Proto user.',
+          },
+          proprietaryIds: {
+            type: 'array',
+            description:
+              'External registry IDs for this person (e.g., IMDb nm ID).',
+            items: {
+              type: 'ref',
+              ref: 'lex:org.titlegraph.catalog.core#proprietaryId',
+            },
           },
         },
       },
@@ -772,6 +831,105 @@ export const schemaDict = {
       },
     },
   },
+  OrgTitlegraphDeliveryScreening: {
+    lexicon: 1,
+    id: 'org.titlegraph.delivery.screening',
+    defs: {
+      main: {
+        type: 'record',
+        key: 'tid',
+        description:
+          'A scheduled physical exhibition of a film. Semantically maps to schema.org/ScreeningEvent.',
+        record: {
+          type: 'object',
+          required: ['venueRef', 'startTime'],
+          properties: {
+            venueRef: {
+              type: 'string',
+              format: 'at-uri',
+              description: 'Pointer to the org.titlegraph.delivery.venue.',
+            },
+            screenName: {
+              type: 'string',
+              description:
+                "e.g., 'Auditorium 4', 'IMAX', or 'Grand Théâtre Lumière'.",
+            },
+            startTime: {
+              type: 'string',
+              format: 'datetime',
+            },
+            endTime: {
+              type: 'string',
+              format: 'datetime',
+              description: 'Optional for physical screenings.',
+            },
+            assetRef: {
+              type: 'string',
+              format: 'at-uri',
+              description:
+                'Pointer to the org.titlegraph.catalog.movie being shown.',
+            },
+            title: {
+              type: 'string',
+              description:
+                'Fallback title if assetRef is missing (e.g., for unlinked indie festival shorts).',
+            },
+            ticketUrl: {
+              type: 'string',
+              format: 'uri',
+              description:
+                'Direct link to point-of-sale (Fandango, Atom, or Festival box office).',
+            },
+            isPremiere: {
+              type: 'boolean',
+              description: 'Flag for festival or world premieres.',
+            },
+          },
+        },
+      },
+    },
+  },
+  OrgTitlegraphDeliveryVenue: {
+    lexicon: 1,
+    id: 'org.titlegraph.delivery.venue',
+    defs: {
+      main: {
+        type: 'record',
+        key: 'tid',
+        description:
+          'A physical location where content is exhibited (e.g., a cinema or festival venue).',
+        record: {
+          type: 'object',
+          required: ['name', 'latitude', 'longitude'],
+          properties: {
+            name: {
+              type: 'string',
+              description: "e.g., 'Palais des Festivals' or 'AMC Empire 25'",
+            },
+            description: {
+              type: 'string',
+              maxLength: 1000,
+            },
+            address: {
+              type: 'string',
+              description: 'The human-readable street address.',
+            },
+            latitude: {
+              type: 'string',
+              description: 'Stringified decimal.',
+            },
+            longitude: {
+              type: 'string',
+            },
+            websiteUrl: {
+              type: 'string',
+              format: 'uri',
+            },
+          },
+        },
+      },
+    },
+  },
 } as const satisfies Record<string, LexiconDoc>
 export const schemas = Object.values(schemaDict) satisfies LexiconDoc[]
 export const lexicons: Lexicons = new Lexicons(schemas)
@@ -816,4 +974,6 @@ export const ids = {
   OrgTitlegraphDeliveryCore: 'org.titlegraph.delivery.core',
   OrgTitlegraphDeliveryEntitlement: 'org.titlegraph.delivery.entitlement',
   OrgTitlegraphDeliveryOffer: 'org.titlegraph.delivery.offer',
+  OrgTitlegraphDeliveryScreening: 'org.titlegraph.delivery.screening',
+  OrgTitlegraphDeliveryVenue: 'org.titlegraph.delivery.venue',
 } as const

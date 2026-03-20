@@ -1,0 +1,46 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.delivery.screening",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "A scheduled physical exhibition of a film. Semantically maps to schema.org/ScreeningEvent.",
+      "record": {
+        "type": "object",
+        "required": ["venueRef", "startTime"],
+        "properties": {
+          "venueRef": { 
+            "type": "string", 
+            "format": "at-uri", 
+            "description": "Pointer to the org.titlegraph.delivery.venue." 
+          },
+          "screenName": { 
+            "type": "string", 
+            "description": "e.g., 'Auditorium 4', 'IMAX', or 'Grand Théâtre Lumière'." 
+          },
+          "startTime": { "type": "string", "format": "datetime" },
+          "endTime": { "type": "string", "format": "datetime", "description": "Optional for physical screenings." },
+          "assetRef": { 
+            "type": "string", 
+            "format": "at-uri", 
+            "description": "Pointer to the org.titlegraph.catalog.movie being shown." 
+          },
+          "title": { 
+            "type": "string", 
+            "description": "Fallback title if assetRef is missing (e.g., for unlinked indie festival shorts)." 
+          },
+          "ticketUrl": { 
+            "type": "string", 
+            "format": "uri", 
+            "description": "Direct link to point-of-sale (Fandango, Atom, or Festival box office)." 
+          },
+          "isPremiere": { 
+            "type": "boolean", 
+            "description": "Flag for festival or world premieres." 
+          }
+        }
+      }
+    }
+  }
+}
