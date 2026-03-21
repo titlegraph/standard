@@ -1,0 +1,38 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.catalog.credit",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "tid",
+      "description": "A decentralized, bottom-up claim of involvement in a media asset. This lives on the contributor's PDS.",
+      "record": {
+        "type": "object",
+        "required": ["assetRef", "role", "name"],
+        "properties": {
+          "assetRef": { 
+            "type": "string", 
+            "format": "at-uri",  
+            "description": "The AT-URI of the org.titlegraph.catalog.movie or series." 
+          },
+          "role": { 
+            "type": "string", 
+            "description": "The department or job title (e.g., 'Director', 'Stunt Double')." 
+          },
+          "name": { 
+            "type": "string", 
+            "description": "The name the user was credited under (may differ from their current profile name)." 
+          },
+          "character": { 
+            "type": "string", 
+            "description": "If acting, the character name." 
+          },
+          "order": {
+            "type": "integer",
+            "description": "Optional self-reported billing order."
+          }
+        }
+      }
+    }
+  }
+}

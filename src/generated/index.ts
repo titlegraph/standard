@@ -39,11 +39,13 @@ export class OrgTitlegraphNS {
   _server: Server
   catalog: OrgTitlegraphCatalogNS
   delivery: OrgTitlegraphDeliveryNS
+  social: OrgTitlegraphSocialNS
 
   constructor(server: Server) {
     this._server = server
     this.catalog = new OrgTitlegraphCatalogNS(server)
     this.delivery = new OrgTitlegraphDeliveryNS(server)
+    this.social = new OrgTitlegraphSocialNS(server)
   }
 }
 
@@ -56,6 +58,14 @@ export class OrgTitlegraphCatalogNS {
 }
 
 export class OrgTitlegraphDeliveryNS {
+  _server: Server
+
+  constructor(server: Server) {
+    this._server = server
+  }
+}
+
+export class OrgTitlegraphSocialNS {
   _server: Server
 
   constructor(server: Server) {

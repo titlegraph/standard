@@ -224,6 +224,48 @@ export const schemaDict = {
       },
     },
   },
+  OrgTitlegraphCatalogCredit: {
+    lexicon: 1,
+    id: 'org.titlegraph.catalog.credit',
+    defs: {
+      main: {
+        type: 'record',
+        key: 'tid',
+        description:
+          "A decentralized, bottom-up claim of involvement in a media asset. This lives on the contributor's PDS.",
+        record: {
+          type: 'object',
+          required: ['assetRef', 'role', 'name'],
+          properties: {
+            assetRef: {
+              type: 'string',
+              format: 'at-uri',
+              description:
+                'The AT-URI of the org.titlegraph.catalog.movie or series.',
+            },
+            role: {
+              type: 'string',
+              description:
+                "The department or job title (e.g., 'Director', 'Stunt Double').",
+            },
+            name: {
+              type: 'string',
+              description:
+                'The name the user was credited under (may differ from their current profile name).',
+            },
+            character: {
+              type: 'string',
+              description: 'If acting, the character name.',
+            },
+            order: {
+              type: 'integer',
+              description: 'Optional self-reported billing order.',
+            },
+          },
+        },
+      },
+    },
+  },
   OrgTitlegraphCatalogEpisode: {
     lexicon: 1,
     id: 'org.titlegraph.catalog.episode',
@@ -930,6 +972,49 @@ export const schemaDict = {
       },
     },
   },
+  OrgTitlegraphSocialReview: {
+    lexicon: 1,
+    id: 'org.titlegraph.social.review',
+    defs: {
+      main: {
+        type: 'record',
+        key: 'tid',
+        description: 'A public review and rating for a media asset.',
+        record: {
+          type: 'object',
+          required: ['subject', 'createdAt'],
+          properties: {
+            subject: {
+              type: 'string',
+              format: 'at-uri',
+              description:
+                'Pointer to the specific movie, episode, or series being reviewed.',
+            },
+            rating: {
+              type: 'integer',
+              minimum: 1,
+              maximum: 10,
+              description:
+                'A 1 to 10 scale (allows for 5 stars with half-stars).',
+            },
+            text: {
+              type: 'string',
+              maxLength: 10000,
+              description: 'The written body of the review.',
+            },
+            containsSpoilers: {
+              type: 'boolean',
+              description: 'Flag to allow the UI to blur the text.',
+            },
+            createdAt: {
+              type: 'string',
+              format: 'datetime',
+            },
+          },
+        },
+      },
+    },
+  },
 } as const satisfies Record<string, LexiconDoc>
 export const schemas = Object.values(schemaDict) satisfies LexiconDoc[]
 export const lexicons: Lexicons = new Lexicons(schemas)
@@ -964,6 +1049,7 @@ export function validate(
 
 export const ids = {
   OrgTitlegraphCatalogCore: 'org.titlegraph.catalog.core',
+  OrgTitlegraphCatalogCredit: 'org.titlegraph.catalog.credit',
   OrgTitlegraphCatalogEpisode: 'org.titlegraph.catalog.episode',
   OrgTitlegraphCatalogMovie: 'org.titlegraph.catalog.movie',
   OrgTitlegraphCatalogSeason: 'org.titlegraph.catalog.season',
@@ -976,4 +1062,5 @@ export const ids = {
   OrgTitlegraphDeliveryOffer: 'org.titlegraph.delivery.offer',
   OrgTitlegraphDeliveryScreening: 'org.titlegraph.delivery.screening',
   OrgTitlegraphDeliveryVenue: 'org.titlegraph.delivery.venue',
+  OrgTitlegraphSocialReview: 'org.titlegraph.social.review',
 } as const
