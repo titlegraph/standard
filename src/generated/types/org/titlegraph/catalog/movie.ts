@@ -21,7 +21,7 @@ export interface Main {
   schemaUrl: 'https://schema.org/Movie'
   metadata: OrgTitlegraphCatalogCore.Metadata
   /** Total runtime in seconds. */
-  durationSeconds: number
+  durationSeconds?: number
   /** URL to the HLS m3u8 trailer manifest. */
   trailerUrl?: string
   createdAt?: string

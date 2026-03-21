@@ -18,12 +18,12 @@ export interface Main {
   $type: 'org.titlegraph.catalog.credit'
   /** The AT-URI of the org.titlegraph.catalog.movie or series. */
   assetRef: string
-  /** The department or job title (e.g., 'Director', 'Stunt Double'). */
+  /** The AT Protocol DID of the person or entity being credited. */
+  subject?: string
+  /** The character name, department or job title (e.g., 'Director', 'Stunt Double', '"Sophia"'). */
   role: string
-  /** The name the user was credited under (may differ from their current profile name). */
+  /** The plain text name the user was credited under. */
   name: string
-  /** If acting, the character name. */
-  character?: string
   /** Optional self-reported billing order. */
   order?: number
   [k: string]: unknown

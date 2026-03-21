@@ -243,19 +243,20 @@ export const schemaDict = {
               description:
                 'The AT-URI of the org.titlegraph.catalog.movie or series.',
             },
+            subject: {
+              type: 'string',
+              format: 'did',
+              description:
+                'The AT Protocol DID of the person or entity being credited.',
+            },
             role: {
               type: 'string',
               description:
-                "The department or job title (e.g., 'Director', 'Stunt Double').",
+                "The character name, department or job title (e.g., 'Director', 'Stunt Double', '\"Sophia\"').",
             },
             name: {
               type: 'string',
-              description:
-                'The name the user was credited under (may differ from their current profile name).',
-            },
-            character: {
-              type: 'string',
-              description: 'If acting, the character name.',
+              description: 'The plain text name the user was credited under.',
             },
             order: {
               type: 'integer',
@@ -284,7 +285,6 @@ export const schemaDict = {
             'seasonRef',
             'episodeNumber',
             'metadata',
-            'durationSeconds',
           ],
           properties: {
             openGraphType: {
@@ -337,12 +337,7 @@ export const schemaDict = {
         key: 'tid',
         record: {
           type: 'object',
-          required: [
-            'openGraphType',
-            'schemaUrl',
-            'metadata',
-            'durationSeconds',
-          ],
+          required: ['openGraphType', 'schemaUrl', 'metadata'],
           properties: {
             openGraphType: {
               type: 'string',

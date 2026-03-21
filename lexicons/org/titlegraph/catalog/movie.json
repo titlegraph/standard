@@ -8,7 +8,7 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["openGraphType", "schemaUrl", "metadata", "durationSeconds"],
+        "required": ["openGraphType", "schemaUrl", "metadata"],
         "properties": {
           "openGraphType": { "type": "string", "const": "video.movie" },
           "schemaUrl": { "type": "string", "const": "https://schema.org/Movie" },

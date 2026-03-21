@@ -26,7 +26,7 @@ export interface Main {
   /** Matches schema.org/episodeNumber. */
   episodeNumber: number
   metadata: OrgTitlegraphCatalogCore.Metadata
-  durationSeconds: number
+  durationSeconds?: number
   createdAt?: string
   [k: string]: unknown
 }

@@ -8,7 +8,7 @@
       "key": "tid",
       "record": {
         "type": "object",
-        "required": ["openGraphType", "schemaUrl", "seriesRef", "seasonRef", "episodeNumber", "metadata", "durationSeconds"],
+        "required": ["openGraphType", "schemaUrl", "seriesRef", "seasonRef", "episodeNumber", "metadata"],
         "properties": {
           "openGraphType": { "type": "string", "const": "video.episode" },
           "schemaUrl": { "type": "string", "const": "https://schema.org/TVEpisode" },
