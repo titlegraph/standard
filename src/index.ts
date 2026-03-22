@@ -16,3 +16,4 @@ export { Record as Venue } from './generated/types/org/titlegraph/delivery/venue
 
 // --- SOCIAL SCHEMA ---
 export { Record as Review } from './generated/types/org/titlegraph/social/review';
+export { Record as Representation } from './generated/types/org/titlegraph/social/representation';

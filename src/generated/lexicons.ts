@@ -744,6 +744,45 @@ export const schemaDict = {
       },
     },
   },
+  OrgTitlegraphSocialRepresentation: {
+    lexicon: 1,
+    id: 'org.titlegraph.social.representation',
+    defs: {
+      main: {
+        type: 'record',
+        key: 'tid',
+        description:
+          'A claim of representation between an entity and a representative.',
+        record: {
+          type: 'object',
+          required: ['subject', 'representative', 'role'],
+          properties: {
+            subject: {
+              type: 'string',
+              description:
+                'The DID of the person, or the AT-URI of the asset (e.g., a Movie) being represented.',
+            },
+            representative: {
+              type: 'string',
+              format: 'did',
+              description:
+                'The DID of the agent, manager, publicist, or firm providing the representation.',
+            },
+            role: {
+              type: 'string',
+              maxLength: 100,
+              description:
+                "The specific capacity of the representation (e.g., 'Talent Manager', 'Sales Agent', 'Legal Counsel').",
+            },
+            createdAt: {
+              type: 'string',
+              format: 'datetime',
+            },
+          },
+        },
+      },
+    },
+  },
   OrgTitlegraphSocialReview: {
     lexicon: 1,
     id: 'org.titlegraph.social.review',
@@ -831,5 +870,6 @@ export const ids = {
   OrgTitlegraphDeliveryOffer: 'org.titlegraph.delivery.offer',
   OrgTitlegraphDeliveryScreening: 'org.titlegraph.delivery.screening',
   OrgTitlegraphDeliveryVenue: 'org.titlegraph.delivery.venue',
+  OrgTitlegraphSocialRepresentation: 'org.titlegraph.social.representation',
   OrgTitlegraphSocialReview: 'org.titlegraph.social.review',
 } as const
