@@ -14,7 +14,16 @@
           "callSign": { "type": "string", "description": "e.g., 'SPTZ'" },
           "licenseType": { "type": "string", "enum": ["FAST", "PAY-TV", "HYBRID"] },
           "streamUrl": { "type": "string", "format": "uri", "description": "The primary HLS/DASH manifest." },
-          "channelBaseGeoPolicy": { "type": "ref", "ref": "org.titlegraph.delivery.core#geoPolicy", "description": "Absolute hard restrictions (e.g., US ONLY)." }
+          "allowedTerritories": {
+            "type": "array",
+            "items": { "type": "string", "maxLength": 30 },
+            "description": "Geographic regions. If omitted/empty, implies worldwide availability."
+          },
+          "excludedTerritories": {
+            "type": "array",
+            "items": { "type": "string", "maxLength": 30 },
+            "description": "Geographic regions where the channel is explicitly blocked."
+          }
         }
       }
     }

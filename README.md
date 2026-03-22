@@ -21,9 +21,7 @@ Mapped strictly to W3C `schema.org/CreativeWork` semantics, this namespace defin
 
 ### 2. The Delivery Namespace (`org.titlegraph.delivery.*`)
 Mapped to `schema.org/Offer` and `schema.org/BroadcastEvent`, this namespace defines the commercial topology. 
-* `entitlement` (Viewing rights and licensing models: SVOD, AVOD, TVOD, EST)
 * `offer` (The commercial price tag and availability window)
-* `bundle` (Commercial packaging of channels and VODs)
 * `channel` (24/7 linear streaming networks)
 * `broadcast` (Linear EPG slots with conditional spotbeam and blackout topologies)
 

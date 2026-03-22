@@ -518,90 +518,6 @@ export const schemaDict = {
       },
     },
   },
-  OrgTitlegraphDeliveryBundle: {
-    lexicon: 1,
-    id: 'org.titlegraph.delivery.bundle',
-    defs: {
-      main: {
-        type: 'record',
-        key: 'tid',
-        description:
-          'A commercial grouping (Bouquet) of linear channels and/or VOD catalog assets, packaged together for consumer display and entitlement.',
-        record: {
-          type: 'object',
-          required: ['name', 'description'],
-          properties: {
-            name: {
-              type: 'string',
-              maxLength: 100,
-              description:
-                "Consumer-facing display name (e.g., 'The HBO & Cinemax Add-On').",
-            },
-            description: {
-              type: 'string',
-              maxLength: 1000,
-              description: 'Marketing copy explaining the value of the bundle.',
-            },
-            imageLogo: {
-              type: 'blob',
-              accept: ['image/png', 'image/webp'],
-              description:
-                'The transparent logo or lockup for the bundle itself.',
-            },
-            channelRefs: {
-              type: 'array',
-              items: {
-                type: 'string',
-                format: 'at-uri',
-              },
-              description:
-                'AT-URIs pointing to org.titlegraph.delivery.channel records (e.g., HBO East, HBO West, HBO Comedy).',
-            },
-            catalogRefs: {
-              type: 'array',
-              items: {
-                type: 'string',
-                format: 'at-uri',
-              },
-              description:
-                'AT-URIs pointing to org.titlegraph.catalog.collection, series, or movie records (e.g., the HBO VOD catalog).',
-            },
-            bundleBaseGeoPolicy: {
-              type: 'ref',
-              ref: 'lex:org.titlegraph.delivery.core#geoPolicy',
-              description:
-                'Optional hard geo-restrictions for the entire bundle (e.g., US Only).',
-            },
-            lineup: {
-              type: 'array',
-              description:
-                'The station-to-LCN mapping for this commercial package.',
-              items: {
-                type: 'ref',
-                ref: 'lex:org.titlegraph.delivery.bundle#lineupItem',
-              },
-            },
-          },
-        },
-      },
-      lineupItem: {
-        type: 'object',
-        required: ['channelRef', 'logicalChannelNumber'],
-        properties: {
-          channelRef: {
-            type: 'string',
-            format: 'at-uri',
-            description: 'Pointer to the org.titlegraph.delivery.channel.',
-          },
-          logicalChannelNumber: {
-            type: 'string',
-            description:
-              "The LCN (e.g., '101', '4.1'). String to support sub-channels.",
-          },
-        },
-      },
-    },
-  },
   OrgTitlegraphDeliveryChannel: {
     lexicon: 1,
     id: 'org.titlegraph.delivery.channel',
@@ -631,185 +547,23 @@ export const schemaDict = {
               format: 'uri',
               description: 'The primary HLS/DASH manifest.',
             },
-            channelBaseGeoPolicy: {
-              type: 'ref',
-              ref: 'lex:org.titlegraph.delivery.core#geoPolicy',
-              description: 'Absolute hard restrictions (e.g., US ONLY).',
-            },
-          },
-        },
-      },
-    },
-  },
-  OrgTitlegraphDeliveryCore: {
-    lexicon: 1,
-    id: 'org.titlegraph.delivery.core',
-    defs: {
-      url: {
-        type: 'string',
-        format: 'uri',
-        description:
-          'Matches schema.org/url. The primary web/app destination to view this item.',
-      },
-      geoPolicy: {
-        type: 'object',
-        description:
-          'A complex geographical topology for spotbeams and blackouts. Evaluated granularly (Points > Zips > Counties > Regions > Countries).',
-        properties: {
-          includes: {
-            type: 'ref',
-            ref: 'lex:org.titlegraph.delivery.core#geoShape',
-            description: 'The areas where access is explicitly granted.',
-          },
-          excludes: {
-            type: 'ref',
-            ref: 'lex:org.titlegraph.delivery.core#geoShape',
-            description:
-              'The areas where access is explicitly denied (blacked out).',
-          },
-        },
-      },
-      geoShape: {
-        type: 'object',
-        properties: {
-          countries: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-            description: "ISO 3166-1 alpha-2 (e.g., ['DE', 'CH', 'BR']).",
-          },
-          regions: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-            description: "ISO 3166-2 states/provinces (e.g., ['US-OH']).",
-          },
-          counties: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-            description:
-              "FIPS codes or localized county codes (e.g., ['39061'] for Hamilton County).",
-          },
-          postalCodes: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-            description: "Postal codes (e.g., ['45140', '90210']).",
-          },
-          circles: {
-            type: 'array',
-            description: 'Center point and radius (e.g., Dodger Stadium).',
-            items: {
-              type: 'ref',
-              ref: 'lex:org.titlegraph.delivery.core#geoCircle',
-            },
-          },
-          polygons: {
-            type: 'array',
-            items: {
-              type: 'string',
-            },
-            description:
-              'Array of stringified GeoJSON polygon coordinate arrays (e.g., random shape in Brazil).',
-          },
-        },
-      },
-      temporalWindow: {
-        type: 'object',
-        description: 'Defines the exact duration logic of an entitlement.',
-        properties: {
-          fixedStart: {
-            type: 'string',
-            format: 'datetime',
-            description: 'Hard start (e.g., start of a sports season).',
-          },
-          fixedEnd: {
-            type: 'string',
-            format: 'datetime',
-            description: 'Hard end (e.g., end of sports season).',
-          },
-          relativeValiditySeconds: {
-            type: 'integer',
-            description:
-              'TVOD/Rental: How long the user has to press play after purchase (e.g., 30 days = 2592000).',
-          },
-          relativeViewingSeconds: {
-            type: 'integer',
-            description:
-              'TVOD/Rental: How long the user has to finish watching once started (e.g., 48 hours = 172800).',
-          },
-          recurringPeriodSeconds: {
-            type: 'integer',
-            description: 'SVOD: Rolling subscription period (e.g., 30 days).',
-          },
-        },
-      },
-      geoCircle: {
-        type: 'object',
-        required: ['latitude', 'longitude', 'radiusMeters'],
-        properties: {
-          latitude: {
-            type: 'string',
-            description:
-              "Stringified decimal degree (e.g., '34.0739'). AT Protocol does not support float primitive types.",
-          },
-          longitude: {
-            type: 'string',
-            description: "Stringified decimal degree (e.g., '-118.2400').",
-          },
-          radiusMeters: {
-            type: 'integer',
-          },
-        },
-      },
-    },
-  },
-  OrgTitlegraphDeliveryEntitlement: {
-    lexicon: 1,
-    id: 'org.titlegraph.delivery.entitlement',
-    defs: {
-      main: {
-        type: 'record',
-        key: 'tid',
-        description:
-          'The specific viewing rights granted to a user or subscriber class.',
-        record: {
-          type: 'object',
-          required: ['name', 'licenseType', 'targetRefs'],
-          properties: {
-            name: {
-              type: 'string',
-              description:
-                "Display name of the entitlement (e.g., 'Premium Sports Package', 'Hager Rental').",
-            },
-            licenseType: {
-              type: 'string',
-              enum: ['SVOD', 'TVOD', 'EST', 'AVOD'],
-              description: 'The underlying business model of the right.',
-            },
-            targetRefs: {
+            allowedTerritories: {
               type: 'array',
               items: {
                 type: 'string',
-                format: 'at-uri',
+                maxLength: 30,
               },
               description:
-                'The AT-URIs of the catalog assets, collections, or linear channels this entitlement unlocks.',
+                'Geographic regions. If omitted/empty, implies worldwide availability.',
             },
-            timeRules: {
-              type: 'ref',
-              ref: 'lex:org.titlegraph.delivery.core#temporalWindow',
-            },
-            baseGeoPolicy: {
-              type: 'ref',
-              ref: 'lex:org.titlegraph.delivery.core#geoPolicy',
+            excludedTerritories: {
+              type: 'array',
+              items: {
+                type: 'string',
+                maxLength: 30,
+              },
               description:
-                'The baseline geographic restrictions for this entitlement.',
+                'Geographic regions where the channel is explicitly blocked.',
             },
           },
         },
@@ -823,45 +577,68 @@ export const schemaDict = {
       main: {
         type: 'record',
         key: 'tid',
-        description: 'The commercial price tag for an Entitlement.',
+        description:
+          'Represents the availability of a specific asset on a specific platform.',
         record: {
           type: 'object',
-          required: [
-            'entitlementRef',
-            'offerGeoEligibility',
-            'price',
-            'currency',
-          ],
+          required: ['assetRef', 'platformRef', 'licenseType'],
           properties: {
-            entitlementRef: {
+            assetRef: {
               type: 'string',
               format: 'at-uri',
-              description: 'What you are actually buying.',
+              description: 'Pointer to the Movie or Series.',
             },
-            offerGeoEligibility: {
-              type: 'ref',
-              ref: 'lex:org.titlegraph.delivery.core#geoPolicy',
-              description: 'Where this specific price tag is valid.',
+            platformRef: {
+              type: 'string',
+              description:
+                "e.g., 'did:web:circuitcinema.com' or a specific App AT-URI.",
+            },
+            licenseType: {
+              type: 'string',
+              enum: ['SVOD', 'AVOD', 'TVOD', 'EST', 'FAST'],
+            },
+            watchUrl: {
+              type: 'string',
+              format: 'uri',
+              description: 'Deep link to stream the asset.',
+            },
+            allowedTerritories: {
+              type: 'array',
+              items: {
+                type: 'string',
+                maxLength: 30,
+              },
+              description:
+                "Geographic regions. Supports ISO 3166-1 alpha-2 ('US'), ISO 3166-2 ('US-CA'), or prefixed hyper-local codes ('zip:US:90210', 'dma:501'). If omitted/empty, implies worldwide availability.",
+            },
+            excludedTerritories: {
+              type: 'array',
+              items: {
+                type: 'string',
+                maxLength: 30,
+              },
+              description:
+                'Geographic regions where the offer is explicitly blocked, supporting the same formats as allowedTerritories.',
+            },
+            validFrom: {
+              type: 'string',
+              format: 'datetime',
+              description:
+                'The start of the licensing window. If omitted, it is available immediately.',
+            },
+            validThrough: {
+              type: 'string',
+              format: 'datetime',
+              description:
+                'The end of the licensing window. If omitted, the offer is open-ended.',
             },
             price: {
               type: 'integer',
-              description:
-                'The price in the lowest currency denominator (e.g., cents. So $10.00 is 1000). 0 if free/AVOD.',
+              description: 'Optional: Cost in cents (only needed if TVOD/EST).',
             },
             currency: {
               type: 'string',
-              maxLength: 3,
-              description: "ISO 4217 code (e.g., 'USD', 'EUR').",
-            },
-            offerValidFrom: {
-              type: 'string',
-              format: 'datetime',
-              description: 'When the item goes on sale.',
-            },
-            offerValidThrough: {
-              type: 'string',
-              format: 'datetime',
-              description: 'When the sale ends.',
+              description: "Optional: ISO 4217 code (e.g., 'USD').",
             },
           },
         },
@@ -1050,10 +827,7 @@ export const ids = {
   OrgTitlegraphCatalogSeason: 'org.titlegraph.catalog.season',
   OrgTitlegraphCatalogSeries: 'org.titlegraph.catalog.series',
   OrgTitlegraphDeliveryBroadcast: 'org.titlegraph.delivery.broadcast',
-  OrgTitlegraphDeliveryBundle: 'org.titlegraph.delivery.bundle',
   OrgTitlegraphDeliveryChannel: 'org.titlegraph.delivery.channel',
-  OrgTitlegraphDeliveryCore: 'org.titlegraph.delivery.core',
-  OrgTitlegraphDeliveryEntitlement: 'org.titlegraph.delivery.entitlement',
   OrgTitlegraphDeliveryOffer: 'org.titlegraph.delivery.offer',
   OrgTitlegraphDeliveryScreening: 'org.titlegraph.delivery.screening',
   OrgTitlegraphDeliveryVenue: 'org.titlegraph.delivery.venue',

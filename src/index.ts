@@ -9,8 +9,10 @@ export * from './generated/types/org/titlegraph/catalog/core';
 
 // --- DELIVERY SCHEMA ---
 export { Record as Offer } from './generated/types/org/titlegraph/delivery/offer';
-export { Record as Entitlement } from './generated/types/org/titlegraph/delivery/entitlement';
 export { Record as Channel } from './generated/types/org/titlegraph/delivery/channel';
-export { Record as Bundle } from './generated/types/org/titlegraph/delivery/bundle';
 export { Record as Broadcast } from './generated/types/org/titlegraph/delivery/broadcast';
-export * from './generated/types/org/titlegraph/delivery/core';
+export { Record as Screening } from './generated/types/org/titlegraph/delivery/screening';
+export { Record as Venue } from './generated/types/org/titlegraph/delivery/venue';
+
+// --- SOCIAL SCHEMA ---
+export { Record as Review } from './generated/types/org/titlegraph/social/review';

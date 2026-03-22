@@ -9,7 +9,6 @@ import {
   is$typed as _is$typed,
   type OmitKey,
 } from '../../../../util'
-import type * as OrgTitlegraphDeliveryCore from './core.js'
 
 const is$typed = _is$typed,
   validate = _validate
@@ -17,17 +16,25 @@ const id = 'org.titlegraph.delivery.offer'
 
 export interface Main {
   $type: 'org.titlegraph.delivery.offer'
-  /** What you are actually buying. */
-  entitlementRef: string
-  offerGeoEligibility: OrgTitlegraphDeliveryCore.GeoPolicy
-  /** The price in the lowest currency denominator (e.g., cents. So $10.00 is 1000). 0 if free/AVOD. */
-  price: number
-  /** ISO 4217 code (e.g., 'USD', 'EUR'). */
-  currency: string
-  /** When the item goes on sale. */
-  offerValidFrom?: string
-  /** When the sale ends. */
-  offerValidThrough?: string
+  /** Pointer to the Movie or Series. */
+  assetRef: string
+  /** e.g., 'did:web:circuitcinema.com' or a specific App AT-URI. */
+  platformRef: string
+  licenseType: 'SVOD' | 'AVOD' | 'TVOD' | 'EST' | 'FAST'
+  /** Deep link to stream the asset. */
+  watchUrl?: string
+  /** Geographic regions. Supports ISO 3166-1 alpha-2 ('US'), ISO 3166-2 ('US-CA'), or prefixed hyper-local codes ('zip:US:90210', 'dma:501'). If omitted/empty, implies worldwide availability. */
+  allowedTerritories?: string[]
+  /** Geographic regions where the offer is explicitly blocked, supporting the same formats as allowedTerritories. */
+  excludedTerritories?: string[]
+  /** The start of the licensing window. If omitted, it is available immediately. */
+  validFrom?: string
+  /** The end of the licensing window. If omitted, the offer is open-ended. */
+  validThrough?: string
+  /** Optional: Cost in cents (only needed if TVOD/EST). */
+  price?: number
+  /** Optional: ISO 4217 code (e.g., 'USD'). */
+  currency?: string
   [k: string]: unknown
 }
 

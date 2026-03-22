@@ -9,7 +9,6 @@ import {
   is$typed as _is$typed,
   type OmitKey,
 } from '../../../../util'
-import type * as OrgTitlegraphDeliveryCore from './core.js'
 
 const is$typed = _is$typed,
   validate = _validate
@@ -24,7 +23,10 @@ export interface Main {
   licenseType: 'FAST' | 'PAY-TV' | 'HYBRID'
   /** The primary HLS/DASH manifest. */
   streamUrl: string
-  channelBaseGeoPolicy?: OrgTitlegraphDeliveryCore.GeoPolicy
+  /** Geographic regions. If omitted/empty, implies worldwide availability. */
+  allowedTerritories?: string[]
+  /** Geographic regions where the channel is explicitly blocked. */
+  excludedTerritories?: string[]
   [k: string]: unknown
 }
 

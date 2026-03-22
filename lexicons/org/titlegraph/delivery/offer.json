@@ -44,6 +44,16 @@
             },
             "description": "Geographic regions where the offer is explicitly blocked, supporting the same formats as allowedTerritories."
           },
+          "validFrom": {
+            "type": "string",
+            "format": "datetime",
+            "description": "The start of the licensing window. If omitted, it is available immediately."
+          },
+          "validThrough": {
+            "type": "string",
+            "format": "datetime",
+            "description": "The end of the licensing window. If omitted, the offer is open-ended."
+          },
           "price": {
             "type": "integer",
             "description": "Optional: Cost in cents (only needed if TVOD/EST)."
