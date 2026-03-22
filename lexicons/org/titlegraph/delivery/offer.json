@@ -5,44 +5,52 @@
     "main": {
       "type": "record",
       "key": "tid",
-      "description": "The commercial price tag for an Entitlement.",
+      "description": "Represents the availability of a specific asset on a specific platform.",
       "record": {
         "type": "object",
-        "required": [
-          "entitlementRef",
-          "offerGeoEligibility",
-          "price",
-          "currency"
-        ],
+        "required": ["assetRef", "platformRef", "licenseType"],
         "properties": {
-          "entitlementRef": {
+          "assetRef": {
             "type": "string",
             "format": "at-uri",
-            "description": "What you are actually buying."
+            "description": "Pointer to the Movie or Series."
           },
-          "offerGeoEligibility": {
-            "type": "ref",
-            "ref": "org.titlegraph.delivery.core#geoPolicy",
-            "description": "Where this specific price tag is valid."
+          "platformRef": {
+            "type": "string",
+            "description": "e.g., 'did:web:circuitcinema.com' or a specific App AT-URI."
+          },
+          "licenseType": {
+            "type": "string",
+            "enum": ["SVOD", "AVOD", "TVOD", "EST", "FAST"]
+          },
+          "watchUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "Deep link to stream the asset."
+          },
+          "allowedTerritories": {
+            "type": "array",
+            "items": { 
+              "type": "string", 
+              "maxLength": 30 
+            },
+            "description": "Geographic regions. Supports ISO 3166-1 alpha-2 ('US'), ISO 3166-2 ('US-CA'), or prefixed hyper-local codes ('zip:US:90210', 'dma:501'). If omitted/empty, implies worldwide availability."
+          },
+          "excludedTerritories": {
+            "type": "array",
+            "items": { 
+              "type": "string", 
+              "maxLength": 30 
+            },
+            "description": "Geographic regions where the offer is explicitly blocked, supporting the same formats as allowedTerritories."
           },
           "price": {
             "type": "integer",
-            "description": "The price in the lowest currency denominator (e.g., cents. So $10.00 is 1000). 0 if free/AVOD."
+            "description": "Optional: Cost in cents (only needed if TVOD/EST)."
           },
           "currency": {
             "type": "string",
-            "maxLength": 3,
-            "description": "ISO 4217 code (e.g., 'USD', 'EUR')."
-          },
-          "offerValidFrom": {
-            "type": "string",
-            "format": "datetime",
-            "description": "When the item goes on sale."
-          },
-          "offerValidThrough": {
-            "type": "string",
-            "format": "datetime",
-            "description": "When the sale ends."
+            "description": "Optional: ISO 4217 code (e.g., 'USD')."
           }
         }
       }
