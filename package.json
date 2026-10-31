@@ -1,6 +1,6 @@
 {
   "name": "@titlegraph/lexicons",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "description": "The federated catalog and delivery standard for streaming television.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -14,8 +14,13 @@
     "dist",
     "lexicons"
   ],
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
-    "build": "lex gen-server ./src/generated lexicons/org/titlegraph/social/representation.json lexicons/org/titlegraph/social/review.json lexicons/org/titlegraph/catalog/credit.json lexicons/org/titlegraph/delivery/broadcast.json lexicons/org/titlegraph/delivery/venue.json lexicons/org/titlegraph/delivery/screening.json lexicons/org/titlegraph/delivery/offer.json lexicons/org/titlegraph/delivery/channel.json  lexicons/org/titlegraph/catalog/core.json lexicons/org/titlegraph/catalog/episode.json lexicons/org/titlegraph/catalog/movie.json lexicons/org/titlegraph/catalog/season.json lexicons/org/titlegraph/catalog/series.json && tsc"
+    "build": "lex gen-server ./src/generated lexicons/org/titlegraph/social/representation.json lexicons/org/titlegraph/social/review.json lexicons/org/titlegraph/catalog/credit.json lexicons/org/titlegraph/delivery/broadcast.json lexicons/org/titlegraph/delivery/venue.json lexicons/org/titlegraph/delivery/screening.json lexicons/org/titlegraph/delivery/offer.json lexicons/org/titlegraph/delivery/channel.json  lexicons/org/titlegraph/catalog/core.json lexicons/org/titlegraph/catalog/episode.json lexicons/org/titlegraph/catalog/movie.json lexicons/org/titlegraph/catalog/season.json lexicons/org/titlegraph/catalog/series.json && tsc",
+    "prepublishOnly": "npm run build",
+    "release:patch": "npm version patch --no-git-tag-version && npm publish --access public"
   },
   "repository": {
     "type": "git",

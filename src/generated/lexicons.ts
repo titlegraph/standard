@@ -80,22 +80,44 @@ export const schemaDict = {
           imagePortrait: {
             type: 'blob',
             accept: ['image/jpeg', 'image/png', 'image/webp'],
-            description: 'Primary 2:3 or 3:4 key art.',
+            description:
+              'Primary 2:3 or 3:4 key art (PDS-hosted blob for studio/UGC art).',
+          },
+          imagePortraitUrl: {
+            type: 'string',
+            format: 'uri',
+            description:
+              'External URI for primary 2:3 or 3:4 key art (e.g., Wikimedia).',
           },
           imageLandscape: {
             type: 'blob',
             accept: ['image/jpeg', 'image/png', 'image/webp'],
             description: 'Primary 16:9 hero artwork.',
           },
+          imageLandscapeUrl: {
+            type: 'string',
+            format: 'uri',
+            description: 'External URI for primary 16:9 hero artwork.',
+          },
           imageBackground: {
             type: 'blob',
             accept: ['image/jpeg', 'image/png', 'image/webp'],
             description: 'Textless 16:9 background art.',
           },
+          imageBackgroundUrl: {
+            type: 'string',
+            format: 'uri',
+            description: 'External URI for textless 16:9 background art.',
+          },
           titleTreatment: {
             type: 'blob',
             accept: ['image/png', 'image/webp'],
             description: 'Transparent logo artwork.',
+          },
+          titleTreatmentUrl: {
+            type: 'string',
+            format: 'uri',
+            description: 'External URI for transparent logo artwork.',
           },
           productionStatus: {
             type: 'string',
@@ -334,7 +356,7 @@ export const schemaDict = {
         type: 'record',
         description:
           'A standalone cinematic film. Semantically maps to schema.org/Movie.',
-        key: 'tid',
+        key: 'any',
         record: {
           type: 'object',
           required: ['openGraphType', 'schemaUrl', 'metadata'],
@@ -437,7 +459,7 @@ export const schemaDict = {
         type: 'record',
         description:
           'An episodic television show. Semantically maps to schema.org/TVSeries.',
-        key: 'tid',
+        key: 'any',
         record: {
           type: 'object',
           required: ['openGraphType', 'schemaUrl', 'metadata'],

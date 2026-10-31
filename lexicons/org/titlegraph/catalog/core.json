@@ -5,40 +5,137 @@
     "metadata": {
       "type": "object",
       "description": "Foundational metadata shared across all TitleGraph media assets.",
-      "required": ["title", "productionStatus"],
+      "required": [
+        "title",
+        "productionStatus"
+      ],
       "properties": {
-        "title": { "type": "string", "maxLength": 300, "description": "Matches schema.org/name. The primary display title." },
-        "description": { "type": "string", "maxLength": 4000, "description": "Matches schema.org/description. The primary plot summary." },
-        "url": { "type": "string", "format": "uri", "description": "Matches schema.org/url. The primary web/app destination to view this title." },
-        "synopsis": { "type": "string", "maxLength": 140, "description": "Matches schema.org/abstract. A short logline." },
-        "releaseYear": { "type": "integer", "description": "The year of initial global release." },
-        "contentRating": { "type": "string", "description": "Matches schema.org/contentRating (e.g., PG-13, TV-MA)." },
-        "genres": { "type": "array", "items": { "type": "string" }, "description": "Matches schema.org/genre." },
-        "eidr": { "type": "string", "description": "The Entertainment Identifier Registry (EIDR) ID." },
+        "title": {
+          "type": "string",
+          "maxLength": 300,
+          "description": "Matches schema.org/name. The primary display title."
+        },
+        "description": {
+          "type": "string",
+          "maxLength": 4000,
+          "description": "Matches schema.org/description. The primary plot summary."
+        },
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "description": "Matches schema.org/url. The primary web/app destination to view this title."
+        },
+        "synopsis": {
+          "type": "string",
+          "maxLength": 140,
+          "description": "Matches schema.org/abstract. A short logline."
+        },
+        "releaseYear": {
+          "type": "integer",
+          "description": "The year of initial global release."
+        },
+        "contentRating": {
+          "type": "string",
+          "description": "Matches schema.org/contentRating (e.g., PG-13, TV-MA)."
+        },
+        "genres": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Matches schema.org/genre."
+        },
+        "eidr": {
+          "type": "string",
+          "description": "The Entertainment Identifier Registry (EIDR) ID."
+        },
         "proprietaryIds": {
           "type": "array",
           "description": "An array of internal system IDs (e.g., Gracenote, IMDb, Moonstone Hub).",
-          "items": { "type": "ref", "ref": "#proprietaryId" }
+          "items": {
+            "type": "ref",
+            "ref": "#proprietaryId"
+          }
         },
         "technicalSpecs": {
           "type": "ref",
           "ref": "#technicalSpecs",
           "description": "Consolidated technical specifications, linguistic options, and accessibility features available for the media."
         },
-        "imagePortrait": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "description": "Primary 2:3 or 3:4 key art." },
-        "imageLandscape": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "description": "Primary 16:9 hero artwork." },
-        "imageBackground": { "type": "blob", "accept": ["image/jpeg", "image/png", "image/webp"], "description": "Textless 16:9 background art." },
-        "titleTreatment": { "type": "blob", "accept": ["image/png", "image/webp"], "description": "Transparent logo artwork." },
+        "imagePortrait": {
+          "type": "blob",
+          "accept": [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+          ],
+          "description": "Primary 2:3 or 3:4 key art (PDS-hosted blob for studio/UGC art)."
+        },
+        "imagePortraitUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "External URI for primary 2:3 or 3:4 key art (e.g., Wikimedia)."
+        },
+        "imageLandscape": {
+          "type": "blob",
+          "accept": [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+          ],
+          "description": "Primary 16:9 hero artwork."
+        },
+        "imageLandscapeUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "External URI for primary 16:9 hero artwork."
+        },
+        "imageBackground": {
+          "type": "blob",
+          "accept": [
+            "image/jpeg",
+            "image/png",
+            "image/webp"
+          ],
+          "description": "Textless 16:9 background art."
+        },
+        "imageBackgroundUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "External URI for textless 16:9 background art."
+        },
+        "titleTreatment": {
+          "type": "blob",
+          "accept": [
+            "image/png",
+            "image/webp"
+          ],
+          "description": "Transparent logo artwork."
+        },
+        "titleTreatmentUrl": {
+          "type": "string",
+          "format": "uri",
+          "description": "External URI for transparent logo artwork."
+        },
         "productionStatus": {
           "type": "string",
           "enum": [
-            "pitch", "script", "development", "pre-production", 
-            "production", "post-production", "completed", "released"
+            "pitch",
+            "script",
+            "development",
+            "pre-production",
+            "production",
+            "post-production",
+            "completed",
+            "released"
           ]
         },
         "seeking": {
           "type": "array",
-          "items": { "type": "string", "maxLength": 50 },
+          "items": {
+            "type": "string",
+            "maxLength": 50
+          },
           "description": "e.g., ['distribution', 'funding', 'cast']"
         },
         "pitchMaterialsUrl": {
@@ -48,30 +145,54 @@
         },
         "credits": {
           "type": "array",
-          "items": { "type": "ref", "ref": "#creditItem" }
+          "items": {
+            "type": "ref",
+            "ref": "#creditItem"
+          }
         }
       }
     },
     "creditItem": {
       "type": "object",
-      "required": ["role", "name"],
+      "required": [
+        "role",
+        "name"
+      ],
       "properties": {
-        "role": { "type": "string" },
-        "name": { "type": "string" },
-        "did": { "type": "string", "format": "did", "description": "Links the credit to an AT Proto user." },
+        "role": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "did": {
+          "type": "string",
+          "format": "did",
+          "description": "Links the credit to an AT Proto user."
+        },
         "proprietaryIds": {
           "type": "array",
           "description": "External registry IDs for this person (e.g., IMDb nm ID).",
-          "items": { "type": "ref", "ref": "#proprietaryId" }
+          "items": {
+            "type": "ref",
+            "ref": "#proprietaryId"
+          }
         }
       }
     },
     "proprietaryId": {
       "type": "object",
-      "required": ["system", "id"],
+      "required": [
+        "system",
+        "id"
+      ],
       "properties": {
-        "system": { "type": "string" },
-        "id": { "type": "string" }
+        "system": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        }
       }
     },
     "technicalSpecs": {
@@ -79,32 +200,44 @@
       "properties": {
         "resolutions": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Standardized resolution formats available (e.g., 'SD', 'HD', '4K', '8K')."
         },
         "aspectRatios": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Available presentation ratios (e.g., '16:9', '4:3', '2.39:1', '9:16')."
         },
         "primaryLanguages": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "BCP 47 language tags for the original audio dialogue (e.g., 'en-US', 'ja-JP')."
         },
         "dubbedLanguages": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "BCP 47 language tags for available alternate audio dubs."
         },
         "subtitleLanguages": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "BCP 47 language tags for available text subtitles."
         },
         "accessibilityFeatures": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "description": "Standardized accessibility identifiers (e.g., 'closed-captions', 'descriptive-audio', 'sign-language-interpreter')."
         }
       }

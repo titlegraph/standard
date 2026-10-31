@@ -36,14 +36,22 @@ export interface Metadata {
   /** An array of internal system IDs (e.g., Gracenote, IMDb, Moonstone Hub). */
   proprietaryIds?: ProprietaryId[]
   technicalSpecs?: TechnicalSpecs
-  /** Primary 2:3 or 3:4 key art. */
+  /** Primary 2:3 or 3:4 key art (PDS-hosted blob for studio/UGC art). */
   imagePortrait?: BlobRef
+  /** External URI for primary 2:3 or 3:4 key art (e.g., Wikimedia). */
+  imagePortraitUrl?: string
   /** Primary 16:9 hero artwork. */
   imageLandscape?: BlobRef
+  /** External URI for primary 16:9 hero artwork. */
+  imageLandscapeUrl?: string
   /** Textless 16:9 background art. */
   imageBackground?: BlobRef
+  /** External URI for textless 16:9 background art. */
+  imageBackgroundUrl?: string
   /** Transparent logo artwork. */
   titleTreatment?: BlobRef
+  /** External URI for transparent logo artwork. */
+  titleTreatmentUrl?: string
   productionStatus:
     | 'pitch'
     | 'script'
