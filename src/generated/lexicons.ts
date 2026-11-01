@@ -26,6 +26,21 @@ export const schemaDict = {
             description:
               'Optional AT-URI pointing to the canonical parent catalog record (e.g., on @filmograph.io) that this spoke record overlays or enriches.',
           },
+          sourceRefs: {
+            type: 'array',
+            items: {
+              type: 'string',
+              format: 'at-uri',
+            },
+            description:
+              'AT-URIs of third-party or filmmaker catalog records adopted or merged into this canonical record.',
+          },
+          curatedBy: {
+            type: 'string',
+            format: 'did',
+            description:
+              'The DID of the trusted curator who approved or adopted this record into the canonical registry.',
+          },
           title: {
             type: 'string',
             maxLength: 500,
@@ -34,8 +49,7 @@ export const schemaDict = {
           originalTitle: {
             type: 'string',
             maxLength: 500,
-            description:
-              "The original title in the work's native language (Wikidata P1476).",
+            description: "The original title in the work's native language.",
           },
           description: {
             type: 'string',

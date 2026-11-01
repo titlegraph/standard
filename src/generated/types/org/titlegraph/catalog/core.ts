@@ -19,9 +19,13 @@ export interface Metadata {
   $type?: 'org.titlegraph.catalog.core#metadata'
   /** Optional AT-URI pointing to the canonical parent catalog record (e.g., on @filmograph.io) that this spoke record overlays or enriches. */
   canonicalRef?: string
+  /** AT-URIs of third-party or filmmaker catalog records adopted or merged into this canonical record. */
+  sourceRefs?: string[]
+  /** The DID of the trusted curator who approved or adopted this record into the canonical registry. */
+  curatedBy?: string
   /** Matches schema.org/name. The primary display title. */
   title: string
-  /** The original title in the work's native language (Wikidata P1476). */
+  /** The original title in the work's native language. */
   originalTitle?: string
   /** Matches schema.org/description. The primary plot summary. */
   description?: string
