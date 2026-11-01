@@ -24,7 +24,10 @@ export interface Main {
   totalSeasons?: number
   /** Indicates if the series is still actively producing new episodes. */
   isOngoing?: boolean
+  /** URL to the HLS m3u8 trailer manifest. */
+  trailerUrl?: string
   createdAt?: string
+  updatedAt?: string
   [k: string]: unknown
 }
 

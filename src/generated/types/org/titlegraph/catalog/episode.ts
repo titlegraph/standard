@@ -28,6 +28,7 @@ export interface Main {
   metadata: OrgTitlegraphCatalogCore.Metadata
   durationSeconds?: number
   createdAt?: string
+  updatedAt?: string
   [k: string]: unknown
 }
 

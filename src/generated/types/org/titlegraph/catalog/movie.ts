@@ -25,6 +25,7 @@ export interface Main {
   /** URL to the HLS m3u8 trailer manifest. */
   trailerUrl?: string
   createdAt?: string
+  updatedAt?: string
   [k: string]: unknown
 }
 

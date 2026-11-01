@@ -20,16 +20,37 @@ export const schemaDict = {
           'Foundational metadata shared across all TitleGraph media assets.',
         required: ['title', 'productionStatus'],
         properties: {
+          canonicalRef: {
+            type: 'string',
+            format: 'at-uri',
+            description:
+              'Optional AT-URI pointing to the canonical parent catalog record (e.g., on @filmograph.io) that this spoke record overlays or enriches.',
+          },
           title: {
             type: 'string',
-            maxLength: 300,
+            maxLength: 500,
             description: 'Matches schema.org/name. The primary display title.',
+          },
+          originalTitle: {
+            type: 'string',
+            maxLength: 500,
+            description:
+              "The original title in the work's native language (Wikidata P1476).",
           },
           description: {
             type: 'string',
-            maxLength: 4000,
+            maxLength: 10000,
             description:
               'Matches schema.org/description. The primary plot summary.',
+          },
+          localizedDescriptions: {
+            type: 'array',
+            description:
+              'Translated plot summaries or loglines keyed by BCP 47 language tag.',
+            items: {
+              type: 'ref',
+              ref: 'lex:org.titlegraph.catalog.core#localizedText',
+            },
           },
           url: {
             type: 'string',
@@ -39,12 +60,26 @@ export const schemaDict = {
           },
           synopsis: {
             type: 'string',
-            maxLength: 140,
+            maxLength: 1000,
             description: 'Matches schema.org/abstract. A short logline.',
           },
           releaseYear: {
             type: 'integer',
             description: 'The year of initial global release.',
+          },
+          releaseDate: {
+            type: 'string',
+            format: 'datetime',
+            description: 'ISO 8601 initial release date.',
+          },
+          countriesOfOrigin: {
+            type: 'array',
+            items: {
+              type: 'string',
+              maxLength: 10,
+            },
+            description:
+              "ISO 3166-1 alpha-2 country codes of origin (e.g., ['US', 'ZA']).",
           },
           contentRating: {
             type: 'string',
@@ -65,7 +100,7 @@ export const schemaDict = {
           proprietaryIds: {
             type: 'array',
             description:
-              'An array of internal system IDs (e.g., Gracenote, IMDb, Moonstone Hub).',
+              'An array of internal system IDs (e.g., Wikidata, IMDb, TMDB, Gracenote).',
             items: {
               type: 'ref',
               ref: 'lex:org.titlegraph.catalog.core#proprietaryId',
@@ -80,14 +115,12 @@ export const schemaDict = {
           imagePortrait: {
             type: 'blob',
             accept: ['image/jpeg', 'image/png', 'image/webp'],
-            description:
-              'Primary 2:3 or 3:4 key art (PDS-hosted blob for studio/UGC art).',
+            description: 'Primary 2:3 or 3:4 key art.',
           },
           imagePortraitUrl: {
             type: 'string',
             format: 'uri',
-            description:
-              'External URI for primary 2:3 or 3:4 key art (e.g., Wikimedia).',
+            description: 'External URI for primary 2:3 or 3:4 key art.',
           },
           imageLandscape: {
             type: 'blob',
@@ -154,6 +187,21 @@ export const schemaDict = {
           },
         },
       },
+      localizedText: {
+        type: 'object',
+        required: ['lang', 'text'],
+        properties: {
+          lang: {
+            type: 'string',
+            maxLength: 20,
+            description: "BCP 47 language code (e.g., 'en-ZA', 'zu', 'af').",
+          },
+          text: {
+            type: 'string',
+            maxLength: 10000,
+          },
+        },
+      },
       creditItem: {
         type: 'object',
         required: ['role', 'name'],
@@ -164,6 +212,16 @@ export const schemaDict = {
           name: {
             type: 'string',
           },
+          character: {
+            type: 'string',
+            maxLength: 300,
+            description:
+              'Character name if role is Cast/Actor (Wikidata P453 / P4633).',
+          },
+          order: {
+            type: 'integer',
+            description: 'Billing order (Wikidata P1545).',
+          },
           did: {
             type: 'string',
             format: 'did',
@@ -172,7 +230,7 @@ export const schemaDict = {
           proprietaryIds: {
             type: 'array',
             description:
-              'External registry IDs for this person (e.g., IMDb nm ID).',
+              'External registry IDs for this person (e.g., IMDb nm ID, Wikidata Q-ID).',
             items: {
               type: 'ref',
               ref: 'lex:org.titlegraph.catalog.core#proprietaryId',
@@ -200,47 +258,36 @@ export const schemaDict = {
             items: {
               type: 'string',
             },
-            description:
-              "Standardized resolution formats available (e.g., 'SD', 'HD', '4K', '8K').",
           },
           aspectRatios: {
             type: 'array',
             items: {
               type: 'string',
             },
-            description:
-              "Available presentation ratios (e.g., '16:9', '4:3', '2.39:1', '9:16').",
           },
           primaryLanguages: {
             type: 'array',
             items: {
               type: 'string',
             },
-            description:
-              "BCP 47 language tags for the original audio dialogue (e.g., 'en-US', 'ja-JP').",
           },
           dubbedLanguages: {
             type: 'array',
             items: {
               type: 'string',
             },
-            description:
-              'BCP 47 language tags for available alternate audio dubs.',
           },
           subtitleLanguages: {
             type: 'array',
             items: {
               type: 'string',
             },
-            description: 'BCP 47 language tags for available text subtitles.',
           },
           accessibilityFeatures: {
             type: 'array',
             items: {
               type: 'string',
             },
-            description:
-              "Standardized accessibility identifiers (e.g., 'closed-captions', 'descriptive-audio', 'sign-language-interpreter').",
           },
         },
       },
@@ -343,6 +390,10 @@ export const schemaDict = {
               type: 'string',
               format: 'datetime',
             },
+            updatedAt: {
+              type: 'string',
+              format: 'datetime',
+            },
           },
         },
       },
@@ -356,7 +407,7 @@ export const schemaDict = {
         type: 'record',
         description:
           'A standalone cinematic film. Semantically maps to schema.org/Movie.',
-        key: 'any',
+        key: 'tid',
         record: {
           type: 'object',
           required: ['openGraphType', 'schemaUrl', 'metadata'],
@@ -384,6 +435,10 @@ export const schemaDict = {
               description: 'URL to the HLS m3u8 trailer manifest.',
             },
             createdAt: {
+              type: 'string',
+              format: 'datetime',
+            },
+            updatedAt: {
               type: 'string',
               format: 'datetime',
             },
@@ -442,7 +497,16 @@ export const schemaDict = {
               ref: 'lex:org.titlegraph.catalog.core#metadata',
               description: 'Season-specific metadata and artwork.',
             },
+            trailerUrl: {
+              type: 'string',
+              format: 'uri',
+              description: 'URL to the HLS m3u8 trailer manifest.',
+            },
             createdAt: {
+              type: 'string',
+              format: 'datetime',
+            },
+            updatedAt: {
               type: 'string',
               format: 'datetime',
             },
@@ -459,7 +523,7 @@ export const schemaDict = {
         type: 'record',
         description:
           'An episodic television show. Semantically maps to schema.org/TVSeries.',
-        key: 'any',
+        key: 'tid',
         record: {
           type: 'object',
           required: ['openGraphType', 'schemaUrl', 'metadata'],
@@ -485,7 +549,16 @@ export const schemaDict = {
               description:
                 'Indicates if the series is still actively producing new episodes.',
             },
+            trailerUrl: {
+              type: 'string',
+              format: 'uri',
+              description: 'URL to the HLS m3u8 trailer manifest.',
+            },
             createdAt: {
+              type: 'string',
+              format: 'datetime',
+            },
+            updatedAt: {
               type: 'string',
               format: 'datetime',
             },

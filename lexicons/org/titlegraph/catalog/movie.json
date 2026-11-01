@@ -5,7 +5,7 @@
     "main": {
       "type": "record",
       "description": "A standalone cinematic film. Semantically maps to schema.org/Movie.",
-      "key": "any",
+      "key": "tid",
       "record": {
         "type": "object",
         "required": [
@@ -37,6 +37,10 @@
             "description": "URL to the HLS m3u8 trailer manifest."
           },
           "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "updatedAt": {
             "type": "string",
             "format": "datetime"
           }

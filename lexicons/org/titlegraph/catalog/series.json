@@ -5,7 +5,7 @@
     "main": {
       "type": "record",
       "description": "An episodic television show. Semantically maps to schema.org/TVSeries.",
-      "key": "any",
+      "key": "tid",
       "record": {
         "type": "object",
         "required": [
@@ -34,7 +34,16 @@
             "type": "boolean",
             "description": "Indicates if the series is still actively producing new episodes."
           },
+          "trailerUrl": {
+            "type": "string",
+            "format": "uri",
+            "description": "URL to the HLS m3u8 trailer manifest."
+          },
           "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "updatedAt": {
             "type": "string",
             "format": "datetime"
           }

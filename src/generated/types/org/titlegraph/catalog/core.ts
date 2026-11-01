@@ -17,28 +17,38 @@ const id = 'org.titlegraph.catalog.core'
 /** Foundational metadata shared across all TitleGraph media assets. */
 export interface Metadata {
   $type?: 'org.titlegraph.catalog.core#metadata'
+  /** Optional AT-URI pointing to the canonical parent catalog record (e.g., on @filmograph.io) that this spoke record overlays or enriches. */
+  canonicalRef?: string
   /** Matches schema.org/name. The primary display title. */
   title: string
+  /** The original title in the work's native language (Wikidata P1476). */
+  originalTitle?: string
   /** Matches schema.org/description. The primary plot summary. */
   description?: string
+  /** Translated plot summaries or loglines keyed by BCP 47 language tag. */
+  localizedDescriptions?: LocalizedText[]
   /** Matches schema.org/url. The primary web/app destination to view this title. */
   url?: string
   /** Matches schema.org/abstract. A short logline. */
   synopsis?: string
   /** The year of initial global release. */
   releaseYear?: number
+  /** ISO 8601 initial release date. */
+  releaseDate?: string
+  /** ISO 3166-1 alpha-2 country codes of origin (e.g., ['US', 'ZA']). */
+  countriesOfOrigin?: string[]
   /** Matches schema.org/contentRating (e.g., PG-13, TV-MA). */
   contentRating?: string
   /** Matches schema.org/genre. */
   genres?: string[]
   /** The Entertainment Identifier Registry (EIDR) ID. */
   eidr?: string
-  /** An array of internal system IDs (e.g., Gracenote, IMDb, Moonstone Hub). */
+  /** An array of internal system IDs (e.g., Wikidata, IMDb, TMDB, Gracenote). */
   proprietaryIds?: ProprietaryId[]
   technicalSpecs?: TechnicalSpecs
-  /** Primary 2:3 or 3:4 key art (PDS-hosted blob for studio/UGC art). */
+  /** Primary 2:3 or 3:4 key art. */
   imagePortrait?: BlobRef
-  /** External URI for primary 2:3 or 3:4 key art (e.g., Wikimedia). */
+  /** External URI for primary 2:3 or 3:4 key art. */
   imagePortraitUrl?: string
   /** Primary 16:9 hero artwork. */
   imageLandscape?: BlobRef
@@ -78,13 +88,34 @@ export function validateMetadata<V>(v: V) {
   return validate<Metadata & V>(v, id, hashMetadata)
 }
 
+export interface LocalizedText {
+  $type?: 'org.titlegraph.catalog.core#localizedText'
+  /** BCP 47 language code (e.g., 'en-ZA', 'zu', 'af'). */
+  lang: string
+  text: string
+}
+
+const hashLocalizedText = 'localizedText'
+
+export function isLocalizedText<V>(v: V) {
+  return is$typed(v, id, hashLocalizedText)
+}
+
+export function validateLocalizedText<V>(v: V) {
+  return validate<LocalizedText & V>(v, id, hashLocalizedText)
+}
+
 export interface CreditItem {
   $type?: 'org.titlegraph.catalog.core#creditItem'
   role: string
   name: string
+  /** Character name if role is Cast/Actor (Wikidata P453 / P4633). */
+  character?: string
+  /** Billing order (Wikidata P1545). */
+  order?: number
   /** Links the credit to an AT Proto user. */
   did?: string
-  /** External registry IDs for this person (e.g., IMDb nm ID). */
+  /** External registry IDs for this person (e.g., IMDb nm ID, Wikidata Q-ID). */
   proprietaryIds?: ProprietaryId[]
 }
 
@@ -116,17 +147,11 @@ export function validateProprietaryId<V>(v: V) {
 
 export interface TechnicalSpecs {
   $type?: 'org.titlegraph.catalog.core#technicalSpecs'
-  /** Standardized resolution formats available (e.g., 'SD', 'HD', '4K', '8K'). */
   resolutions?: string[]
-  /** Available presentation ratios (e.g., '16:9', '4:3', '2.39:1', '9:16'). */
   aspectRatios?: string[]
-  /** BCP 47 language tags for the original audio dialogue (e.g., 'en-US', 'ja-JP'). */
   primaryLanguages?: string[]
-  /** BCP 47 language tags for available alternate audio dubs. */
   dubbedLanguages?: string[]
-  /** BCP 47 language tags for available text subtitles. */
   subtitleLanguages?: string[]
-  /** Standardized accessibility identifiers (e.g., 'closed-captions', 'descriptive-audio', 'sign-language-interpreter'). */
   accessibilityFeatures?: string[]
 }
 
