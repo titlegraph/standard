@@ -1,0 +1,45 @@
+{
+  "lexicon": 1,
+  "id": "org.titlegraph.actor.profile",
+  "defs": {
+    "main": {
+      "type": "record",
+      "key": "literal:self",
+      "description": "Links an AT Protocol actor to their industry identity and external registry person IDs (e.g. Wikidata Q-ID).",
+      "record": {
+        "type": "object",
+        "required": [
+          "createdAt"
+        ],
+        "properties": {
+          "creditedName": {
+            "type": "string",
+            "maxLength": 200,
+            "description": "Primary professional name used in film and television credits."
+          },
+          "bio": {
+            "type": "string",
+            "maxLength": 4000,
+            "description": "Professional biography."
+          },
+          "proprietaryIds": {
+            "type": "array",
+            "description": "External person registry IDs claimed by this user (e.g. system='wikidata', id='Q42930').",
+            "items": {
+              "type": "ref",
+              "ref": "org.titlegraph.catalog.core#proprietaryId"
+            }
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "datetime"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "datetime"
+          }
+        }
+      }
+    }
+  }
+}
